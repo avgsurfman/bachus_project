@@ -1,0 +1,102 @@
+#! /nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/bin/vvp
+:ivl_version "13.0 (devel)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/lib/ivl/system.vpi";
+:vpi_module "/nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/lib/ivl/v2005_math.vpi";
+:vpi_module "/nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/lib/ivl/va_math.vpi";
+:vpi_module "/nix/store/pmwa4vkmdcz5madc47icc2j9zdvwg2gk-iverilog-s20250103-60-gdb82380ce/lib/ivl/v2009.vpi";
+S_0x24816b10 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x24816ca0 .scope module, "blackcell" "blackcell" 3 10;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "p";
+    .port_info 1 /INPUT 1 "p_prev";
+    .port_info 2 /INPUT 1 "g";
+    .port_info 3 /INPUT 1 "g_prev";
+    .port_info 4 /OUTPUT 1 "p_next";
+    .port_info 5 /OUTPUT 1 "g_next";
+o0x72071ae800d8 .functor BUFZ 1, c4<z>; HiZ drive
+o0x72071ae80138 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x24816a30 .functor AND 1, o0x72071ae800d8, o0x72071ae80138, C4<1>, C4<1>;
+o0x72071ae800a8 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d090 .functor AND 1, o0x72071ae800d8, o0x72071ae800a8, C4<1>, C4<1>;
+o0x72071ae80018 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d180 .functor OR 1, L_0x2482d090, o0x72071ae80018, C4<0>, C4<0>;
+v0x24818e60_0 .net "g", 0 0, o0x72071ae80018;  0 drivers
+v0x2482b8c0_0 .net "g_next", 0 0, L_0x2482d180;  1 drivers
+v0x2482b980_0 .net "g_or", 0 0, L_0x2482d090;  1 drivers
+v0x2482ba20_0 .net "g_prev", 0 0, o0x72071ae800a8;  0 drivers
+v0x2482bae0_0 .net "p", 0 0, o0x72071ae800d8;  0 drivers
+v0x2482bbf0_0 .net "p_next", 0 0, L_0x24816a30;  1 drivers
+v0x2482bcb0_0 .net "p_prev", 0 0, o0x72071ae80138;  0 drivers
+S_0x247eef50 .scope module, "graycell" "graycell" 3 22;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "p";
+    .port_info 1 /INPUT 1 "g";
+    .port_info 2 /INPUT 1 "g_prev";
+    .port_info 3 /OUTPUT 1 "g_next";
+o0x72071ae80348 .functor BUFZ 1, c4<z>; HiZ drive
+o0x72071ae80318 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d270 .functor AND 1, o0x72071ae80348, o0x72071ae80318, C4<1>, C4<1>;
+o0x72071ae80288 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d370 .functor OR 1, L_0x2482d270, o0x72071ae80288, C4<0>, C4<0>;
+v0x2482be30_0 .net "g", 0 0, o0x72071ae80288;  0 drivers
+v0x2482bf10_0 .net "g_next", 0 0, L_0x2482d370;  1 drivers
+v0x2482bfd0_0 .net "g_or", 0 0, L_0x2482d270;  1 drivers
+v0x2482c070_0 .net "g_prev", 0 0, o0x72071ae80318;  0 drivers
+v0x2482c130_0 .net "p", 0 0, o0x72071ae80348;  0 drivers
+S_0x247ef170 .scope module, "incell" "incell" 3 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "p";
+    .port_info 3 /OUTPUT 1 "g";
+o0x72071ae80438 .functor BUFZ 1, c4<z>; HiZ drive
+o0x72071ae80468 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d460 .functor OR 1, o0x72071ae80438, o0x72071ae80468, C4<0>, C4<0>;
+L_0x2482d560 .functor AND 1, o0x72071ae80438, o0x72071ae80468, C4<1>, C4<1>;
+v0x2482c2c0_0 .net "a", 0 0, o0x72071ae80438;  0 drivers
+v0x2482c3a0_0 .net "b", 0 0, o0x72071ae80468;  0 drivers
+v0x2482c460_0 .net "g", 0 0, L_0x2482d560;  1 drivers
+v0x2482c500_0 .net "p", 0 0, L_0x2482d460;  1 drivers
+S_0x24818020 .scope module, "outcell" "outcell" 3 31;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /INPUT 1 "g";
+    .port_info 3 /OUTPUT 1 "s";
+o0x72071ae805b8 .functor BUFZ 1, c4<z>; HiZ drive
+o0x72071ae805e8 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d6a0 .functor XOR 1, o0x72071ae805b8, o0x72071ae805e8, C4<0>, C4<0>;
+o0x72071ae80618 .functor BUFZ 1, c4<z>; HiZ drive
+L_0x2482d740 .functor XOR 1, L_0x2482d6a0, o0x72071ae80618, C4<0>, C4<0>;
+v0x2482c670_0 .net "a", 0 0, o0x72071ae805b8;  0 drivers
+v0x2482c750_0 .net "b", 0 0, o0x72071ae805e8;  0 drivers
+v0x2482c810_0 .net "g", 0 0, o0x72071ae80618;  0 drivers
+v0x2482c8b0_0 .net "s", 0 0, L_0x2482d740;  1 drivers
+v0x2482c970_0 .net "sum_part", 0 0, L_0x2482d6a0;  1 drivers
+S_0x248181b0 .scope module, "sklansky_adder" "sklansky_adder" 3 37;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "a";
+    .port_info 1 /INPUT 32 "b";
+    .port_info 2 /INPUT 1 "cin";
+    .port_info 3 /OUTPUT 1 "cout";
+    .port_info 4 /OUTPUT 32 "y";
+o0x72071ae80768 .functor BUFZ 32, c4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x2482cb00_0 .net "a", 31 0, o0x72071ae80768;  0 drivers
+o0x72071ae80798 .functor BUFZ 32, c4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x2482cc00_0 .net "b", 31 0, o0x72071ae80798;  0 drivers
+o0x72071ae807c8 .functor BUFZ 1, c4<z>; HiZ drive
+v0x2482cce0_0 .net "cin", 0 0, o0x72071ae807c8;  0 drivers
+v0x2482cd80_0 .var "cout", 0 0;
+L_0x72071aace018 .functor BUFT 1, C4<00000000101110101101101011011101>, C4<0>, C4<0>, C4<0>;
+v0x2482ce40_0 .net "y", 31 0, L_0x72071aace018;  1 drivers
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "adder.sv";
