@@ -70,7 +70,6 @@ module sklansky_adder #( parameter SIZE=32)
           end
          
         for (i = 0; i < SIZE; i++) begin : sum
-            // this might be wrong. check tommorow
             assign y[i] = generates[num_steps][i] ^ a[i] ^ b[i];
         end
 
