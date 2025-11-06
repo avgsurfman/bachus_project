@@ -184,6 +184,9 @@ module sklansky_adder(input logic [31:0] a, b,
           wire zero_g;
           incell zero (a[0], b[0], zero_p, zero_g);
 
+          // carry in is a generate signal from minus one.
+
+
           // LEVEL ONE
           // generate begin
           // genvar k, i;
@@ -195,6 +198,7 @@ module sklansky_adder(input logic [31:0] a, b,
           // if  ( i % 2**(k-1) >= 2**(k-1)/2 ) -> buffer
           // else nothing 
           // hmmmm...
+          // FUCK
           
           wire thirtyone_thirty_p;
           wire thirtyone_thirty_g;
@@ -223,62 +227,83 @@ module sklansky_adder(input logic [31:0] a, b,
           blackcell blk_23_22(twentythree_p, twentytwo_p, twentythree_g, twentytwo_g, twentythree_twentytwo_p, twentythree_twentytwo_p);
 
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire twentyone_twenty_p;
+          wire twentyone_twenty_g;
 
           blackcell blk_21_20(twentyone_p, twenty_p, twentyone_g, twenty_g, twentyone_twenty_p, twentyone_twenty_p);
 
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire nineteen_eighteen_p;
+          wire nineteen_eighteen_g;
 
           blackcell blk_19_18(nineteen_p, eighteen_p, nineteen_g, eighteen_g, nineteen_eighteen_p, nineteen_eighteen_p);
 
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire seventeen_sixteen_p;
+          wire seventeen_sixteen_g;
 
           blackcell blk_17_16(seventeen_p, sixteen_p, seventeen_g, sixteen_g, seventeen_sixteen_p, seventeen_sixteen_p);
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire fifteen_fourteen_p;
+          wire fifteen_fourteen_g;
 
           blackcell blk_15_14(fifteen_p, fourteen_p, fifteen_g, fourteen_g, fifteen_fourteen_p, fifteen_fourteen_p);
 
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire thirteen_twelve_p;
+          wire thirteen_twelve_g;
 
           blackcell blk_13_12(thirteen_p, twelve_p, thirteen_g, twelve_g, thirteen_twelve_p, thirteen_twelve_p);
 
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire eleven_ten_p;
+          wire eleven_ten_g;
 
           blackcell blk_11_10(eleven_p, ten_p, eleven_g, ten_g, eleven_ten_p, eleven_ten_p);
 
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire nine_eight_p;
+          wire nine_eight_g;
 
           blackcell blk_9_8(nine_p, eight_p, nine_g, eight_g, nine_eight_p, nine_eight_p);
 
-          wire thirtyone_thirty_p;
-          wire thirtyone_thirty_g;
+          wire seven_six_p;
+          wire seven_six_g;
 
           blackcell blk_7_6(seven_p, six_p, seven_g, six_g, seven_six_p, seven_six_p);
 
 
 
+          wire five_four_p;
+          wire five_four_g;
+
+          blackcell blk_5_4(five_p, four_p, five_g, four_g, five_four_p, five_four_p);
 
 
+          wire three_two_p;
+          wire three_two_g;
+
+          blackcell blk_3_2(three_p, two_p, three_g, two_g, three_two_p, three_two_p);
 
 
+          wire one_zero_p;
+          wire one_zero_g;
 
-
-
-
+          blackcell blk_1_0(one_p, zero_p, one_g, zero_g, one_zero_p, one_zero_p);
+          // buffers?  
+        
+         
+ 
           // LEVEL 2
+
+
+          wire thirtyone_twenty_nine_p;
+          wire thirtyone_twenty_nine_g;
+
+
+
+ 
+
 assign y = 32'hBADADD;
 
 endmodule

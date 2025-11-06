@@ -1,19 +1,23 @@
+`include "incell.sv"
+`include "blackcell.sv"
+`include "graycell.sv"
+`include "outcell.sv"
+
 module sklansky_adder #( parameter SIZE=32)
                       (input logic [SIZE-1:0] a, b,
                       input logic cin,
                       output logic cout, 
                       output logic [SIZE-1:0] y);
           
-          // special thanks to NikosDelijohn
-          // total number of P,G levels (k);
+          // level zero
+          
+          // special thanks to nikosdelijohn
+          // the total number of p,g levels (k)
           localparam num_steps = $clog2(SIZE);
 
-          wire [SIZE-1:0] propagates [0:num_steps];
-          wire [SIZE-1:0] generates [0:num_steps-1];
-          
-
-          // LEVEL ZERO
- 
+          wire [SIZE-1:0] generates  [num_steps:0]; 
+          wire [SIZE-1:0] propagates [num_steps:0];
+       
           genvar i;
           generate
              for ( i = 0; i < SIZE; i++) begin: entry
@@ -21,33 +25,46 @@ module sklansky_adder #( parameter SIZE=32)
              end
           endgenerate 
 
-          // LEVEL ONE
-          genvar k;
-          
-          //TODO: REWIRE
+          // level one
 
-          generate begin : sklansky_tree
-          for ( k = 1; k < $clog2(SIZE); k++) begin
-              for ( i = 0; i < SIZE; i++) begin                                             
-                  if (( i % 2**k) >= 2**(k-1)) begin : blackcell_insertion//-> blackcell\gray cell "painting", 
-                      if ( i  < 2**k ) graycell( //propagates[k-1][i], generates[k-1][i], generates[k-1][i - (1 << (k-1))], generates[k][i] );// insert grays from the back
-                      else blackcell(//propagates[k-1][i], propagates[k-1][i - (1 << (k-1))], 
-                                     //generates[k-1][i], generates[k-1][i - (1 << (k-1))],
-                                     //propagates[k][i], generates[k][i]
+          genvar k;
+          generate begin
+          for ( k = 1; k <= num_steps; k++) begin
+              for ( i = 0; i < SIZE; i++) begin     // this could be a pain in the ass if i consider carry ins                                  
+                  if (( i % 2**k) >= 2**(k-1)) begin : blackcell_insertion // black cells are inserted every 2**(k-1) cells  
+                      // this calls for a rewrite
+                      if ( i  < 2**k ) begin    // enough graycells/level?
+                          graycell gr0(propagates[k-1][i], generates[k-1][i], 
+                          generates[k-1][i - (1 << (k-1))], generates[k][i] 
+                          );// insert grays from the back
+                          assign propagates[k][i] = propagates[k-1][i];
+                      end
+                      else blackcell bl0(propagates[k-1][i],propagates[k-1][i - (1 << (k-1))], // i - (1 << (k-1))
+                                     generates[k-1][i], generates[k-1][i - (1 << (k-1))], //modulo 1, 2,4
+                                     propagates[k][i], generates[k][i]
                                     );
                   end 
                   else begin: buffer_insertion
-                  //    if  ( i % 2**(k-1) >= 2**(k-1)/2 )
-                  //            buf ()
-                  //   else nothing
-                  // hmmmm...
+                      //if  ( i % 2**(k-1) >= 2**(k-1)/2 ) begin
+                      //    buf (propagates[k][i], propagates[k-1][i]);
+                      //    buf (generates[k][i], generates[k-1][i]);
+                      //end
+                      //else begin
+                      //    // intermediary wire
+                          assign propagates[k][i] = propagates[k-1][i];
+                          assign generates[k][i] =  generates[k-1][i];
                   end
               end
-         end
-         
+           end
+        end 
 
-         // LEVEL LAST
-         assign cout = generates[num_steps][SIZE-1];
+        // level last
+        // note: in cin version create a propagate step
+        //copypasted code        
+        for (i = 0; i < SIZE; i++) begin: sum 
+        outcell ou(a[i], b[i], generates[num_steps][i], y[i]);
+        end
+        
+        endgenerate 
 
-
-endmodule;
+endmodule

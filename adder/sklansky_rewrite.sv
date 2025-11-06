@@ -1,0 +1,81 @@
+module sklansky_adder #( parameter SIZE=32)
+                      (input logic [SIZE-1:0] a, b,
+                      input logic cin,
+                      output logic cout, 
+                      output logic [SIZE-1:0] y);
+          
+          // level zero
+          
+          // special thanks to nikosdelijohn @ github
+          // for providing a CLEAN solution I should have copied over
+          // instead of writing sloppy structural code
+          // and slamming my head against the wall
+
+          // the total number of p,g levels (k)
+          localparam num_steps = $clog2(SIZE);
+
+          logic [SIZE:0] generates  [num_steps:0]; //intentionally bigger to handle carryout 
+          logic [SIZE:0] propagates [num_steps:0];
+       
+          
+          // Handle carry in (as shown in Weste-Harris)
+          assign generates[0][0] = cin;
+          assign propagates[0][0] = 1'b0; // Connected to GND               
+
+          genvar i;
+          generate
+          // !! indexing change !! 1 is shifted to the right a lil
+             for ( i = 1; i <= SIZE; i++) begin: entry
+                 assign propagates[0][i] = a[i-1] ^ b[i-1];
+                 assign generates[0][i]  = a[i-1] & b[i-1];
+             end
+          endgenerate 
+
+          /// level one
+          // Some preface for this segment:
+          // PG cells in sklansky adders are generated every 1,2,4, and 8 spaces. This 
+          // pattern is really easy to notice and generalize.
+          // The synthesis tool should (?) Librelane/yosys/iverilog should insert its own buffers to 
+          // optimize the design so frankly structural makes not so much sense here
+
+
+          genvar k;
+          generate begin
+          for ( k = 1; k <= num_steps; k++) begin
+              for ( i = 0; i <= SIZE; i++) begin  // hopefully should work 
+                  if (( i % 2**k) >= 2**(k-1)) begin : cell_insertion  // black cells are inserted every 2**(k-1) cells  
+                      // might fuck up
+                      if ( i  < (2**k - 1) ) begin : graycell_insertion      // enough graycells/level? 1,3,7,etc.
+                         assign generates[k][i] = generates[k-1][i] | propagates[k-1][i] & generates[k-1][i-1];    // LGTM 
+                      end
+                      else begin: blackcell_insertion 
+                         assign generates[k][i] = generates[k-1][i] | propagates[k-1][i] & generates[k-1][i-1];
+                         assign propagates[k][i] = propagates[k-1][i] & propagates[k-1][i-1];
+                      end
+                  end 
+                  else begin: buffer_insertion
+                     // if  ( i % 2**(k-1) >= 2**(k-1)/2 ) begin
+                     //     buf (propagates[k][i], propagates[k-1][i]);
+                     //     buf (generates[k][i], generates[k-1][i]);
+                     // end
+                     // else begin
+                     //     // intermediary wire
+                     //     
+                          assign propagates[k][i] = propagates[k-1][i];
+                          assign generates[k][i] =  generates[k-1][i];
+                     //end
+                  end
+              end
+          end
+          end
+         
+        for (i = 0; i < SIZE; i++) begin : sum
+            assign y[i] = generates[num_steps][i] ^ a[i] ^ b[i];
+        end
+
+        // cout
+        endgenerate
+
+        assign cout = generates[num_steps][SIZE] | generates[num_steps][SIZE-1] | propagates[num_steps][SIZE-1];
+
+endmodule
