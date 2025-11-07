@@ -59,8 +59,8 @@ module sklansky_adder #( parameter SIZE=32)
                      //     buf (generates[k][i], generates[k-1][i]);
                      // end
                      // else begin
-                     //     // intermediary wire
-                     //     
+                     //   // intermediary wire
+                     //   // this is problematic 
                           assign propagates[k][i] = propagates[k-1][i];
                           assign generates[k][i] =  generates[k-1][i];
                      //end
