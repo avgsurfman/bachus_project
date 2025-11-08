@@ -28,7 +28,7 @@ async def adder_basic_test(dut):
 
 @cocotb.test()
 async def adder_minusone_one(dut):
-    """Test for 5 + 10"""
+    """Test for -1  + 1. No cout."""
 
     A = -1
     B = 1
@@ -43,6 +43,10 @@ async def adder_minusone_one(dut):
     assert dut.y.value == 0, (
         f"Adder result is incorrect: {dut.y.value} != {A+B}"
     ) 
+
+    assert dut.cout.value == 0, (
+        f"Cout is wrong: {dut.cout.value}"   
+    )
 
 
 @cocotb.test()
@@ -108,9 +112,9 @@ async def adder_generate(dut):
 async def adder_randomised_test(dut):
     """Test for adding 2 random numbers multiple times"""
 
-    for _ in range(10):
-        A   = random.randint(0, 15)
-        B   = random.randint(0, 15)
+    for _ in range(100):
+        A   = random.randint(0, 256)
+        B   = random.randint(0, 256)
         Cin = random.randint(0,1)
 
         dut.a.value = A
@@ -126,3 +130,21 @@ async def adder_randomised_test(dut):
 
 
 
+#@cocotb.test()
+#async def adder_overflow(dut):
+#    """Test for overflow logic"""
+#
+#    A = -100000
+#    B = -100000
+#    Cin = 0
+#
+#    dut.a.value = A
+#    dut.b.value = B
+#    dut.cin.value = Cin
+#
+#    await Timer(2, unit="ns")
+#
+#
+#    assert dut.y.value == (A+B+Cin mod, (
+#        f"Cin behavior is incorrect: {dut.y.value} != {A+B+Cin}"
+#    ) 
