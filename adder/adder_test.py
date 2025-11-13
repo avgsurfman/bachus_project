@@ -1,4 +1,7 @@
 import random
+import os
+#import sys
+#from pathlib import Path
 
 import cocotb
 from cocotb.triggers import Timer
@@ -6,7 +9,6 @@ from cocotb.triggers import Timer
 
 #if cocotb.simulator.is_running():
 #    from adder_model import adder_model
-
 
 @cocotb.test()
 async def adder_basic_test(dut):
@@ -113,8 +115,8 @@ async def adder_randomised_test(dut):
     """Test for adding 2 random numbers multiple times"""
 
     for _ in range(100):
-        A   = random.randint(0, 256)
-        B   = random.randint(0, 256)
+        A   = random.randint(0, 2**(30))
+        B   = random.randint(0, 2**(30))
         Cin = random.randint(0,1)
 
         dut.a.value = A
@@ -130,21 +132,27 @@ async def adder_randomised_test(dut):
 
 
 
-#@cocotb.test()
-#async def adder_overflow(dut):
-#    """Test for overflow logic"""
-#
-#    A = -100000
-#    B = -100000
-#    Cin = 0
-#
-#    dut.a.value = A
-#    dut.b.value = B
-#    dut.cin.value = Cin
-#
-#    await Timer(2, unit="ns")
-#
-#
-#    assert dut.y.value == (A+B+Cin mod, (
-#        f"Cin behavior is incorrect: {dut.y.value} != {A+B+Cin}"
-#    ) 
+@cocotb.test()
+async def adder_randomized_overflow(dut):
+    """Test the entire two's complement range."""
+    for _ in range(10):
+        A   = random.randint(-2**(31), 2**(31)-1)
+        B   = random.randint(-2**(31), 2**(31)-1)
+        Cin = random.randint(0,1)
+        dut.a.value = A
+        dut.b.value = B
+        dut.cin.value = Cin
+
+        await Timer(2, unit="ns")
+
+
+        assert dut.y.value == adder_model(A, B, Cin, 32), (
+        f"Adder behavior is incorrect: {dut.y.value} != {A+B+Cin}"
+        )
+
+
+def adder_model(a: int, b: int, cin: int, xlen: int) -> int:
+    """Model of a RISC-V adder."""
+    res = a + b + cin;
+    mask  = (1 << xlen) -1;
+    return res & mask;
