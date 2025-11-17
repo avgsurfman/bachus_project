@@ -1,1 +1,7 @@
 .venv
+
+*/sim_build
+*/results.xml
+__pycache__
+*/__pycache__
+*/model/__pycache__

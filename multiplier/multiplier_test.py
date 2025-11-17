@@ -73,6 +73,24 @@ async def anything_times1_test(dut):
     await Timer(2, unit="ns")
 
 
-    assert dut.y.value == 1, (
-        f"Critical Error: ANYTHING TIMES ONE IS NOT ITSELF! A={dut.a.value}, B={dut.b.value} {dut.y.value} != 0"
+    assert dut.y.value == A, (
+        f"Critical Error: ANYTHING TIMES ONE IS NOT ITSELF! A={dut.a.value}, B={dut.b.value} {dut.y.value} != A"
+    )
+
+
+@cocotb.test()
+async def mult_random_unsigned_numbers(dut):
+    """Multiplying two random integers."""
+
+    A = random.randint(0, 2**(32));
+    B = random.randint(0, 2**(32));
+
+    dut.a.value = A
+    dut.b.value = B
+
+    await Timer(2, unit="ns")
+
+
+    assert dut.y.value == A*B, (
+        f"Error: Big number multiplication failed! A={dut.a.value}, B={dut.b.value} {dut.y.value} != A*B"
     )
