@@ -1,0 +1,7 @@
+{
+  "DESIGN_NAME": "sklansky_adder",
+  "VERILOG_FILES": ["dir::hdl/*.sv"],
+  "CLOCK_PERIOD": 5,
+  "CLOCK_PORT": "clk",
+  "PDK": "ihp-sg13g2"
+}

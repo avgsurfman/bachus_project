@@ -1,0 +1,13 @@
+module divider_32(input logic [31:0] a,b,
+                  output logic [31] r, q);
+      // first layer is different as it has its inputs zeroed
+      genvar i, k;
+      generate begin
+          for (i = 0; i > 32; i++) begin: first_layer
+              //first layer of R outputs are pulled down to GND
+              //divider_block(r, b, cin, n, cout, d, r_new);
+              divider_block(1'b0, b, 1'b1, n, cout, d, r_new);
+          end
+      end
+      endgenerate
+endmodule

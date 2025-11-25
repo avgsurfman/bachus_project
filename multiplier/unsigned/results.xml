@@ -1,0 +1,10 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1763488433" />
+    <testcase name="multiplier_2times2_test" classname="multiplier_test_unsigned" file="/home/de_generic/my_designs/bachus_project/multiplier/unsigned/multiplier_test_unsigned.py" lineno="9" time="0.018463134765625" sim_time_ns="2.0" ratio_time="108.32396694214876" />
+    <testcase name="multiplier_5times10_test" classname="multiplier_test_unsigned" file="/home/de_generic/my_designs/bachus_project/multiplier/unsigned/multiplier_test_unsigned.py" lineno="27" time="0.0006279945373535156" sim_time_ns="2.0000000000000004" ratio_time="3184.741078208049" />
+    <testcase name="anything_times0_test" classname="multiplier_test_unsigned" file="/home/de_generic/my_designs/bachus_project/multiplier/unsigned/multiplier_test_unsigned.py" lineno="45" time="0.0008666515350341797" sim_time_ns="2.0" ratio_time="2307.7325997248968" />
+    <testcase name="anything_times1_test" classname="multiplier_test_unsigned" file="/home/de_generic/my_designs/bachus_project/multiplier/unsigned/multiplier_test_unsigned.py" lineno="65" time="0.0010006427764892578" sim_time_ns="2.0" ratio_time="1998.7152728139147" />
+    <testcase name="mult_random_unsigned_numbers" classname="multiplier_test_unsigned" file="/home/de_generic/my_designs/bachus_project/multiplier/unsigned/multiplier_test_unsigned.py" lineno="83" time="0.04562854766845703" sim_time_ns="2.0" ratio_time="43.832208172222806" />
+  </testsuite>
+</testsuites>
