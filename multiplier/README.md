@@ -1,5 +1,6 @@
 ## What's this?
 
-This is multiplier directory.
-It contains (or at least, it's supposed to...) contain an unsigned and signed multipler, along
-with a variable-mode multiplier.
+This is the main multiplier directory.
+It contains an unsigned, unsigned-parametrized and signed implementations of a binary multipler.
+For now, all of these are CSA-adder based.
+Tree multipliers may yet come?
