@@ -7,6 +7,7 @@
 
 `include "../fulladder_and.sv"
 `include "../fulladder_nand.sv"
+`include "../../adder/hdl/sklansky_adder.sv"
 
 module multiplier_signed#(parameter SIZE = 32)
                          (input logic [SIZE-1:0] a, b,
@@ -29,22 +30,14 @@ module multiplier_signed#(parameter SIZE = 32)
                assign layers[0][SIZE-1] = ~(a[SIZE-1] & b[0]);
         end // OK
         
-        // Ok so this one is slightly different.
-        // Every last term is negated.
-        // There's also a 1 carry in.
         else if (k == 1) begin: first_layer
-            // first case when cin == 0, shifted by one
             //                current ab  previous layer        previous carry       current layer  current carry
-            fulladder_and     f0(a[0], b[k], layers[k-1][1],    0,                 layers[k][0],  carry_logic[k][0]);
+            fulladder_and     f0(a[0], b[k], layers[k-1][1],    1'b0,                 layers[k][0],  carry_logic[k][0]);
             for (i = 1; i < SIZE-1; i++) begin
                 //            current ab  previous layer        previous carry       current layer current carry
-                fulladder_and f1(a[i],  b[k], layers[k-1][i+1], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
+                fulladder_and f1(a[i],  b[k], layers[k-1][i+1], 1'b0,              layers[k][i], carry_logic[k][i]);
             end
-            // s              current ab     zeroed sum         previous carry       current layer current carry
-            // BEFORE:
-            // fulladder_and     f2(a[SIZE-1], b[k],     0,            carry_logic[k][SIZE-2],  layers[k][SIZE-1], carry_logic[k][SIZE-1]);
-            // TODO: MINUS AT THE LAST LAYER!
-            fulladder_nand     f2(a[SIZE-1], b[k],     1'b1,           carry_logic[k][SIZE-2],  layers[k][SIZE-1], carry_logic[k][SIZE-1]);
+            fulladder_nand     f2(a[SIZE-1], b[k],     1'b1,    1'b0,  layers[k][SIZE-1], carry_logic[k][SIZE-1]);
         end
         else if (k == SIZE-1) begin: last_layer
         // !!! COPY-PASTED !!!
@@ -52,31 +45,27 @@ module multiplier_signed#(parameter SIZE = 32)
         // PROCEED WITH CAUTION
            for (i = 0; i < SIZE; i++) begin 
                if ( i == 0)
-                   //               current ab  previous layer  previous carry       current layer current carry
-                   fulladder_nand f3(a[i], b[k], layers[k-1][i+1], 0,                   layers[k][i],     carry_logic[k][i]);
+                   //               current ab  previous layer  previous carry          current layer     current carry
+                   // PRESENT DAY
+                   // PRESENT TIME
+                   fulladder_nand f3(a[i], b[k], layers[k-1][i+1], carry_logic[k-1][i], layers[k][i], carry_logic[k][i]);
                else if ( i < SIZE-1)  
-                   fulladder_nand f4(a[i], b[k], layers[k-1][i+1], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
+                   fulladder_nand f4(a[i], b[k], layers[k-1][i+1], carry_logic[k-1][i], layers[k][i], carry_logic[k][i]);
                else
-                   // special case because carry_logic is the last layer
-                   // BEFORE:
-                   // fulladder_and f5(a[i], b[k], carry_logic[k-1][i], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
-                   // Negated last term
-                   fulladder_and f5(a[i], b[k], carry_logic[k-1][i], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
+                   // TODO: Toggleable in the next version
+                   fulladder_and  f5(a[i], b[k], 1'b0, carry_logic[k-1][i], layers[k][i], carry_logic[k][i]);
            end
         end
         else begin: regular_layer
            for (i = 0; i < SIZE; i++) begin 
                if ( i == 0)
                    //               current ab  previous layer  previous carry       current layer current carry
-                   fulladder_and f3(a[i], b[k], layers[k-1][i+1], 0,                   layers[k][i],     carry_logic[k][i]);
+                   fulladder_and f3(a[i], b[k], layers[k-1][i+1], carry_logic[k-1][i],                   layers[k][i],     carry_logic[k][i]);
                else if ( i < SIZE-1)  
-                   fulladder_and f4(a[i], b[k], layers[k-1][i+1], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
+                   fulladder_and f4(a[i], b[k], layers[k-1][i+1], carry_logic[k-1][i], layers[k][i], carry_logic[k][i]);
                else
                    // special case because carry_logic is the last layer
-                   // BEFORE:
-                   // fulladder_and f5(a[i], b[k], carry_logic[k-1][i], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
-                   // Negated last term
-                   fulladder_nand f5(a[i], b[k], carry_logic[k-1][i], carry_logic[k][i-1], layers[k][i], carry_logic[k][i]);
+                   fulladder_nand f5(a[i], b[k], 1'b0, carry_logic[k-1][i], layers[k][i], carry_logic[k][i]);
            end
         end
     end
@@ -92,11 +81,13 @@ module multiplier_signed#(parameter SIZE = 32)
     end
     end
     endgenerate
-    // upper 31-bits
-    // problematic part
-    //for( i = 1; i < 32; i++) begin
-    //   assign y[i+31] = layers[31][i]; // obvious mistake but at least I don't get misassignments on 64 bits
-    //end
-    assign y[2*SIZE-2:SIZE] = layers[SIZE-1][SIZE-1:1];  // two times size -2 : size 
-    assign y[2*SIZE-1] = carry_logic[SIZE-1][SIZE-1];
+    // upper 32-bits
+    // aka the cpa layer
+    sklansky_adder     #(SIZE) cpa_layer(
+                      .a({1'b1, layers[SIZE-1][SIZE-1:1]}), 
+                      .b(carry_logic[SIZE-1][SIZE-1:0]),
+                      .cin(1'b0),
+                      .cout(), 
+                      .y(y[2*SIZE-1:SIZE]));
+
 endmodule

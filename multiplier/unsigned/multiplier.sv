@@ -11,17 +11,11 @@
 module multiplier_bw_unsigned#(parameter SIZE = 32)
                               (input logic [SIZE-1:0] a, b,
                               output logic [2*SIZE-1:0] y);
-    // TODO: parametrize
-    // 32x32 
-    // First layer
-    // Each layer has 32 bits, shifting to the left every layer by one
-    // so 32x32 wires.
-    // 32x32 fucking wires.
     logic [SIZE-1:0] layers [SIZE-1:0];
     // carry logic?
-    logic [SIZE-1:0] carry_logic[SIZE-1:0]; // should be smaller, there's one less carry wire
+    logic [SIZE-1:0] carry_logic[SIZE-1:0]; // should be smaller, there's one less layer
     // not that critical doe
-    // SIZE-1, SIZE-1 array
+    
     
     genvar i, k;
     generate begin
@@ -42,11 +36,11 @@ module multiplier_bw_unsigned#(parameter SIZE = 32)
             fulladder_and     f0(a[0], b[k], layers[k-1][1],    1'b0, layers[k][0],  carry_logic[k][0]);
 
             for (i = 1; i < SIZE-1; i++) begin
-                //            current ab      previous layer        previous carry       current layer current carry
+                //            current ab      previous layer        previous carry    current layer current carry
                 //fulladder_and f1(a[i], b[k], layers[k-1][i+1],    layers[k-1][i], layers[k][i], carry_logic[k][i]);
                 fulladder_and f1(a[i], b[k], layers[k-1][i+1],    1'b0, layers[k][i], carry_logic[k][i]);
             end
-            // s              current ab      previous layer(zeroed sum)     previous carry      current layer current carry
+            // s              current ab      previous layer/carry        current layer      current carry
             fulladder_and     f2(a[SIZE-1], b[k],     1'b0,        1'b0,  layers[k][SIZE-1], carry_logic[k][SIZE-1]);
         end
         else begin: regular_layer
@@ -75,7 +69,7 @@ module multiplier_bw_unsigned#(parameter SIZE = 32)
     end
     endgenerate
     // upper 32-bits
-    // Aka the CPA layer
+    // aka the cpa layer
 
     sklansky_adder #(SIZE) cpa_layer(
                       .a({1'b0, layers[SIZE-1][SIZE-1:1]}), 

@@ -1,7 +1,8 @@
-/// Multiplier using carry-save adders and valency-2 sklansky adder at the final stage. 
+/// Unsigned 32-bit multiplier using carry-save adders.
+//  Uses ripple-carry. Unfortunately. 3N complexity...
 /// Outputs: 64-bit rail.
-//  CC Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Gora.
-//  Licensed under the GPL.
+//  CC 2025 Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Gora.
+//  Licensed under the BSD 3-clause license and the Apache License 2.0.
 
 `include "fulladder_and.sv"
 
