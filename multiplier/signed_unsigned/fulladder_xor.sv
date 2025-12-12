@@ -1,7 +1,7 @@
 /// Full adder with XOR for the multiply module specifically for signed multiplication.
 // XOR acts as a toggle switch.
 
-module fulladder_xor(input logic a, b, sin, cin, toggle 
+module fulladder_xor(input logic a, b, sin, cin, toggle,
                     output logic sout, cout);
   
     logic a_and_b;

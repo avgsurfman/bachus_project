@@ -9,7 +9,7 @@
 `include "../fulladder_nand.sv"
 `include "../../adder/hdl/sklansky_adder.sv"
 
-module multiplier_signed#(parameter SIZE = 32)
+module multiplier_bw_signed#(parameter SIZE = 32)
                          (input logic [SIZE-1:0] a, b,
                          output logic [2*SIZE-1:0] y);
     // First layer

@@ -1,4 +1,4 @@
-/// Parametrized signed multiplier using carry-save adders. 
+/// Parametrized signed/unsigned/mixed BW multiplier using carry-save adders.
 //  CC 2025 Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Gora.
 //  Licensed under the BSD 3-clause license and the Apache License 2.0.
 
@@ -9,7 +9,7 @@
 `include "./fulladder_xor.sv"
 `include "../../adder/hdl/sklansky_adder.sv"
 
-module multiplier_signed#(parameter SIZE = 32)
+module multiplier_msu   #(parameter SIZE = 32)
                          (input logic [SIZE-1:0] a, b,
                           input logic sign, mix,
                           output logic [2*SIZE-1:0] y);
@@ -17,7 +17,8 @@ module multiplier_signed#(parameter SIZE = 32)
     logic [SIZE-1:0] layers [SIZE-1:0];
     // carry logic?
     logic [SIZE-1:0] carry_logic[SIZE-1:0]; 
-   
+    
+    logic sign_or_mix; 
     assign sign_or_mix = sign | mix; // intermediate 
     
     genvar i, k;
@@ -28,7 +29,7 @@ module multiplier_signed#(parameter SIZE = 32)
            for (i = 0; i < SIZE-1; i++) begin
                assign layers[0][i] = a[i] & b[0];
            end
-               assign layers[0][SIZE-1] = (sign | mix) ? ~(a[SIZE-1] & b[0]) 
+               assign layers[0][SIZE-1] = sign_or_mix  ? ~(a[SIZE-1] & b[0]) 
                                                        :   a[SIZE-1] & b[0];
         end // OK
         
@@ -39,9 +40,11 @@ module multiplier_signed#(parameter SIZE = 32)
                 //            current ab  previous layer        previous carry       current layer current carry
                 fulladder_and f1(a[i],  b[k], layers[k-1][i+1], 1'b0,              layers[k][i], carry_logic[k][i]);
             end
+            // sin being unconditional ruined my unsigned results
+            // ouch
             fulladder_xor     f2(.a(a[SIZE-1]), 
                                  .b(b[k]),     
-                                 .sin(1'b1),    
+                                 .sin(sign_or_mix),    
                                  .cin(1'b0),
                                  .toggle(sign_or_mix),
                                  .sout(layers[k][SIZE-1]), 
@@ -73,6 +76,7 @@ module multiplier_signed#(parameter SIZE = 32)
                else
                    // TODO: Toggleable in the next version
                    //fulladder_and  f5(a[i], b[k], 1'b0, carry_logic[k-1][i], layers[k][i], carry_logic[k][i]);
+                   // toggle set to GND
                    fulladder_xor  f5(.a(a[i]), 
                                  .b(b[k]),     
                                  .sin(1'b0),    
