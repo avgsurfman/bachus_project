@@ -29,7 +29,7 @@ module multiplier_msu   #(parameter SIZE = 32)
            for (i = 0; i < SIZE-1; i++) begin
                assign layers[0][i] = a[i] & b[0];
            end
-               assign layers[0][SIZE-1] = sign_or_mix  ? ~(a[SIZE-1] & b[0]) 
+               assign layers[0][SIZE-1] = sign         ? ~(a[SIZE-1] & b[0]) 
                                                        :   a[SIZE-1] & b[0];
         end // OK
         
@@ -42,9 +42,11 @@ module multiplier_msu   #(parameter SIZE = 32)
             end
             // sin being unconditional ruined my unsigned results
             // ouch
+            logic mixed_mult;
+            assign mixed_mult = ~layers[0][SIZE-1] & mix; 
             fulladder_xor     f2(.a(a[SIZE-1]), 
                                  .b(b[k]),     
-                                 .sin(sign_or_mix),    
+                                 .sin(sign | mixed_mult),    
                                  .cin(1'b0),
                                  .toggle(sign_or_mix),
                                  .sout(layers[k][SIZE-1]), 
@@ -61,7 +63,7 @@ module multiplier_msu   #(parameter SIZE = 32)
                                  .b(b[k]),     
                                  .sin(layers[k-1][i+1]),    
                                  .cin(carry_logic[k-1][i]),
-                                 .toggle(sign_or_mix),
+                                 .toggle(sign),
                                  .sout(layers[k][i]), 
                                  .cout(carry_logic[k][i]));
                else if ( i < SIZE-1)  
@@ -70,7 +72,7 @@ module multiplier_msu   #(parameter SIZE = 32)
                                  .b(b[k]),     
                                  .sin(layers[k-1][i+1]),    
                                  .cin(carry_logic[k-1][i]),
-                                 .toggle(sign_or_mix),
+                                 .toggle(sign),
                                  .sout(layers[k][i]), 
                                  .cout(carry_logic[k][i]));
                else
