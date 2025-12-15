@@ -120,6 +120,7 @@ module multiplier_msu   #(parameter SIZE = 32)
     endgenerate
     // upper 32-bits
     // aka the cpa layer
+    // probably fails due to the wrong order of the operands
     sklansky_adder     #(SIZE) cpa_layer(
                       .a({sign_or_mix, layers[SIZE-1][SIZE-1:1]}), 
                       .b(carry_logic[SIZE-1][SIZE-1:0]),
