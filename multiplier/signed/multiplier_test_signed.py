@@ -106,13 +106,13 @@ async def mult_random_signed_numbers(dut):
     dut.a.value = a
     dut.b.value = b
     res = dut.y.value;
-    res = res.to_signed();
-    traceback.print_tb();
+    res2 = res.to_signed();
+    #traceback.print_tb();
     #res = dut.y.value.to_signed()
     #res = dut.y.value.signed_integer
     await Timer(2, unit="ns")
 
 
-    assert res  == a*b, (
+    assert res2  == a*b, (
         f"error: big number multiplication failed! a={dut.a.value}, b={dut.b.value} {dut.y.value} != a*b"
     )

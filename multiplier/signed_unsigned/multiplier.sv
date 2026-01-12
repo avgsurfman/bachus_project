@@ -9,10 +9,10 @@
 `include "./fulladder_xor.sv"
 `include "../../adder/hdl/sklansky_adder.sv"
 
-module multiplier_msu   #(parameter SIZE = 32)
-                         (input logic [SIZE-1:0] a, b,
+module multiplier_msu   #(parameter size = 32)
+                         (input logic [size-1:0] a, b,
                           input logic sign, mix,
-                          output logic [2*SIZE-1:0] y);
+                          output logic [2*size-1:0] y);
     // First layer
     logic [SIZE-1:0] layers [SIZE-1:0];
     // carry logic?
