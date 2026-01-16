@@ -1,0 +1,7 @@
+{
+  "DESIGN_NAME": "F_isNaN",
+  "VERILOG_FILES": ["dir::F_isNaN.sv"],
+  "CLOCK_PERIOD": 5,
+  "CLOCK_PORT": "clk",
+  "PDK": "ihp-sg13g2"
+}
