@@ -5,7 +5,7 @@
 // CC Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Góra
 
 `include "../multiplier/signed_unsigned/multiplier.sv"
-`include "../divider/divider32.sv"
+`include "../divider/divider_32.sv"
 `include "../adder/hdl/sklansky_adder.sv"
 
 
@@ -34,8 +34,8 @@ assign isSignedB = b[31] & sign;
 logic [31:0] a_neg, b_neg;
 logic [31:0] a_abs, b_abs;
 
-sklansky_adder a_adder #(.SIZE(32))(~a, 0, 1'b1, , a_neg);
-sklansky_adder b_adder #(.SIZE(32))(~b, 0, 1'b1, , b_neg);
+sklansky_adder #(.SIZE(32)) a_adder (~a, 0, 1'b1, , a_neg);
+sklansky_adder #(.SIZE(32)) b_adder (~b, 0, 1'b1, , b_neg);
 
 // 2:1 mux
 assign a_abs = isSignedA ? a_neg : a;
@@ -53,8 +53,8 @@ divider32 div_unsigned(.a(a_abs), .b(b_abs), .rem(div_rem), .q(div_q));
 logic [31:0] div_q_neg, div_rem_neg;
 logic [31:0] div_q_res, div_rem_res;
 
-sklansky_adder rem_adder #(.SIZE(32))(~div_rem, 32'b0, 1'b1, , div_rem_neg);
-sklansky_adder q_adder   #(.SIZE(32))(~div_q,   32'b0, 1'b1, , div_q_neg);
+sklansky_adder #(.SIZE(32)) rem_adder (~div_rem, 32'b0, 1'b1, , div_rem_neg);
+sklansky_adder #(.SIZE(32)) q_adder   (~div_q,   32'b0, 1'b1, , div_q_neg);
 
 //assign result_sign = sign & (a[31] ^ b[31]);
 
@@ -75,7 +75,7 @@ assign div_q_res   = (sign & q_sign) ? div_q_neg   : div_q;
 logic [63:0] mult_vec;
 
 // hello my name is 
-multiplier_msu   multiplier #(.SIZE(32))
+multiplier_msu   #(.SIZE(32)) multiplier 
                             (.a(a), 
                              .b(b), 
                              .sign(sign), 

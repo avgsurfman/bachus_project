@@ -23,9 +23,40 @@ F_isNaN        encoderB(B, isNaNA, isInfB, isSubnormalB, isZeroB, isNormalB);
 
 
 //// Exponent
+/// Adds expA + expB - 127 (bias)
 
-/// CSA Adder
-// Adds expA + expB - 127 (bias)
+
+/// Need a generate statement here
+
+logic [7:0] carry, save, exp;
+logic expOverflow;
+
+// Optimized CSA Adder
+// See CMOS VLSI 11.3
+assign carry[7] = a[30] | b [30];
+assign save[7] = ~ (a[30] ^ b[30]);
+assign carry[6] = a[29] & b[29];
+assign save[6] = a[29] ^ b[29];
+assign carry[5] = a[28] & b[28];
+assign save[5] = a[28] ^ b[28];
+assign carry[4] = a[27] & b[27];
+assign save[4] = a[27] ^ b[27];
+assign carry[3] = a[26] & b[26];
+assign save[3] = a[26] ^ b[26];
+assign carry[2] = a[25] & b[25]
+assign save[2] = a[25] ^ b[25]
+assign carry[1] = a[24] & b[24]
+assign save[1] = a[24] ^ b[24]
+assign carry[0] = a[23] | b[23];
+assign save[0] = ~ (a[23] ^ b[23]);
+
+// maybe 9 to account for overflow?
+sklansky_adder #(8) exponent_add( 
+                      .a(carry[7:0]), 
+                      .b(save[7:0]),
+                      .cin(1'b0),
+                      .cout(expOverflow), 
+                      .y(exp[7:0]);
 
 
 //// Mantissa, Significand
