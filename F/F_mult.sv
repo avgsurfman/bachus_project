@@ -73,7 +73,16 @@ multiplier_bw_unsigned#(SIZE = 24)
 
 logic shiftDue [4:0]; 
 
- 
+// detect leading ones 
+// priorityEnc detectOne(mul[46:23], shiftDue); // detects first zero
+
+// if shift due is nonzero, substract exp[7:0] by encoded amount (sets underflow); 
+
+// shift right logically (mantissa is not zero), and round
+// module shifter(mul[46:0], shiftDue, result)
+
+// perform second rounding ONCE if not normalize
+// what are guard digits?
 
 // need rounding based on FSCR
 endmodule
