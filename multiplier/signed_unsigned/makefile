@@ -6,6 +6,10 @@ SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 
 VERILOG_SOURCES += $(PWD)/multiplier.sv
+VERILOG_SOURCES += $(PWD)/../fulladder_and.sv
+VERILOG_SOURCES += $(PWD)/fulladder_xor.sv
+VERILOG_SOURCES += $(PWD)/../../adder/hdl/sklansky_adder.sv
+
 # use VHDL_SOURCES for VHDL files
 
 # COCOTB_TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file

@@ -1,0 +1,921 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)
+
+1. Executing Liberty frontend: /home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib
+Imported 84 cell types from liberty file.
+[INFO] Using SDC file '/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/06-yosys-synthesis/synthesis.abc.sdc' for ABC…wtaf
+
+2. Executing Verilog-2005 frontend: /home/de_generic/my_designs/bachus_project/F/F_isNaN.sv
+Parsing SystemVerilog input from `/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv' to AST representation.
+Storing AST representation for module `$abstract\F_isNaN'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+4. Executing AST frontend in derive mode using pre-parsed AST for module `\F_isNaN'.
+Generating RTLIL representation for module `\F_isNaN'.
+
+4.1. Analyzing design hierarchy..
+Top module:  \F_isNaN
+
+4.2. Analyzing design hierarchy..
+Top module:  \F_isNaN
+Removing unused module `$abstract\F_isNaN'.
+Removed 1 unused modules.
+Renaming module F_isNaN to F_isNaN.
+
+5. Generating Graphviz representation of design.
+Writing dot description to `/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/06-yosys-synthesis/hierarchy.dot'.
+Dumping module F_isNaN to page 1.
+
+6. Executing ATTRMAP pass (move or copy attributes).
+
+7. Executing TRIBUF pass.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
+Top module:  \F_isNaN
+
+8.2. Analyzing design hierarchy..
+Top module:  \F_isNaN
+Removed 0 unused modules.
+
+9. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+10. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 6 switch rules as full_case in process $proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1 in module F_isNaN.
+Removed a total of 0 dead cases.
+
+11. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 6 assignments to connections.
+
+12. Executing PROC_INIT pass (extract init attributes).
+
+13. Executing PROC_ARST pass (detect async resets in processes).
+
+14. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~6 debug messages>
+
+15. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+     1/6: $1\isNormal[0:0]
+     2/6: $1\isSubnormal[0:0]
+     3/6: $1\isZero[0:0]
+     4/6: $1\isNegInf[0:0]
+     5/6: $1\isInf[0:0]
+     6/6: $1\isNaN[0:0]
+
+16. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\F_isNaN.\isNaN' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isInf' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isNegInf' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isSubnormal' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isZero' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isNormal' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+
+17. Executing PROC_DFF pass (convert process syncs to FFs).
+
+18. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+19. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 6 empty switches in `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+Removing empty process `F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+Cleaned up 6 empty switches.
+
+20. Executing CHECK pass (checking for obvious problems).
+Checking module F_isNaN...
+Found and reported 0 problems.
+
+21. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+<suppressed ~1 debug messages>
+
+22. Executing FLATTEN pass (flatten design).
+
+23. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+Removed 0 unused cells and 24 unused wires.
+<suppressed ~1 debug messages>
+
+25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+26. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+27. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \F_isNaN..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+28. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \F_isNaN.
+Performed a total of 0 changes.
+
+29. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+30. Executing OPT_DFF pass (perform DFF optimizations).
+
+31. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+32. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+33. Rerunning OPT passes. (Maybe there is more to do…)
+
+34. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \F_isNaN..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+35. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \F_isNaN.
+Performed a total of 0 changes.
+
+36. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+37. Executing OPT_DFF pass (perform DFF optimizations).
+
+38. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+39. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+40. Executing FSM pass (extract and optimize FSM).
+
+40.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+40.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+40.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+40.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+40.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+40.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+40.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+40.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+41. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+42. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+43. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \F_isNaN..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+44. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \F_isNaN.
+Performed a total of 0 changes.
+
+45. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+46. Executing OPT_DFF pass (perform DFF optimizations).
+
+47. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+48. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+49. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 32) from port B of cell F_isNaN.$eq$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:20$2 ($eq).
+Removed top 1 bits (of 32) from port B of cell F_isNaN.$eq$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:22$3 ($eq).
+
+50. Executing PEEPOPT pass (run peephole optimizers).
+
+51. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+52. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module F_isNaN:
+  created 0 $alu and 0 $macc cells.
+
+53. Executing SHARE pass (SAT-based resource sharing).
+
+54. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+55. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+56. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \F_isNaN..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+57. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \F_isNaN.
+Performed a total of 0 changes.
+
+58. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+59. Executing OPT_DFF pass (perform DFF optimizations).
+
+60. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+61. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+62. Executing MEMORY pass.
+
+62.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+62.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+62.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+62.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+62.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+62.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+62.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+62.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+62.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+62.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+63. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+64. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+<suppressed ~6 debug messages>
+
+65. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+66. Executing OPT_DFF pass (perform DFF optimizations).
+
+67. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+68. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+69. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+70. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+71. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \F_isNaN..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+72. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \F_isNaN.
+Performed a total of 0 changes.
+
+73. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+74. Executing OPT_SHARE pass.
+
+75. Executing OPT_DFF pass (perform DFF optimizations).
+
+76. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+77. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+78. Executing TECHMAP pass (map to technology primitives).
+
+78.1. Executing Verilog-2005 frontend: /nix/store/f2psm4dyix5p4r8c1wyz8m67psng0rjb-yosys-0.54/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/nix/store/f2psm4dyix5p4r8c1wyz8m67psng0rjb-yosys-0.54/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+78.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $reduce_and.
+No more expansions possible.
+<suppressed ~88 debug messages>
+
+79. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+<suppressed ~128 debug messages>
+
+80. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+<suppressed ~399 debug messages>
+Removed a total of 133 cells.
+
+81. Executing OPT_DFF pass (perform DFF optimizations).
+
+82. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+Removed 0 unused cells and 30 unused wires.
+<suppressed ~1 debug messages>
+
+83. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+84. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+85. Executing OPT_DFF pass (perform DFF optimizations).
+
+86. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+87. Executing ABC pass (technology mapping using ABC).
+
+87.1. Extracting gate netlist of module `\F_isNaN' to `<abc-temp-dir>/input.blif'..
+Extracted 95 gates and 127 wires to a netlist network with 32 inputs and 6 outputs.
+
+87.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+87.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        1
+ABC RESULTS:            ANDNOT cells:       15
+ABC RESULTS:              NAND cells:        8
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:                OR cells:       49
+ABC RESULTS:             ORNOT cells:        3
+ABC RESULTS:        internal signals:       89
+ABC RESULTS:           input signals:       32
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+88. Executing OPT pass (performing simple optimizations).
+
+88.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+88.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+88.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+88.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+Removed 0 unused cells and 86 unused wires.
+<suppressed ~1 debug messages>
+
+88.5. Finished fast OPT passes.
+
+89. Executing HIERARCHY pass (managing design hierarchy).
+
+89.1. Analyzing design hierarchy..
+Top module:  \F_isNaN
+
+89.2. Analyzing design hierarchy..
+Top module:  \F_isNaN
+Removed 0 unused modules.
+
+90. Executing CHECK pass (checking for obvious problems).
+Checking module F_isNaN...
+Found and reported 0 problems.
+
+91. Printing statistics.
+
+=== F_isNaN ===
+
+   Number of wires:                 79
+   Number of wire bits:            110
+   Number of public wires:           7
+   Number of public wire bits:      38
+   Number of ports:                  7
+   Number of port bits:             38
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 78
+     $_ANDNOT_                      15
+     $_AND_                          1
+     $_NAND_                         8
+     $_NOR_                          2
+     $_ORNOT_                        3
+     $_OR_                          49
+
+92. Generating Graphviz representation of design.
+Writing dot description to `/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/06-yosys-synthesis/primitive_techmap.dot'.
+Dumping module F_isNaN to page 1.
+
+93. Executing OPT pass (performing simple optimizations).
+
+93.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+93.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+93.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \F_isNaN..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+93.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \F_isNaN.
+Performed a total of 0 changes.
+
+93.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\F_isNaN'.
+Removed a total of 0 cells.
+
+93.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+93.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+
+93.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module F_isNaN.
+
+93.9. Finished OPT passes. (There is nothing left to do.)
+
+94. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+{
+   "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/07622f45bc504725b034b96b563af906.lib ",
+   "modules": {
+      "\\F_isNaN": {
+         "num_wires":         79,
+         "num_wire_bits":     110,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         78,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 15,
+            "$_AND_": 1,
+            "$_NAND_": 8,
+            "$_NOR_": 2,
+            "$_ORNOT_": 3,
+            "$_OR_": 49
+         }
+      }
+   },
+      "design": {
+         "num_wires":         79,
+         "num_wire_bits":     110,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         78,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 15,
+            "$_AND_": 1,
+            "$_NAND_": 8,
+            "$_NOR_": 2,
+            "$_ORNOT_": 3,
+            "$_OR_": 49
+         }
+      }
+}
+
+95. Printing statistics.
+
+=== F_isNaN ===
+
+   Number of wires:                 79
+   Number of wire bits:            110
+   Number of public wires:           7
+   Number of public wire bits:      38
+   Number of ports:                  7
+   Number of port bits:             38
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 78
+     $_ANDNOT_                      15
+     $_AND_                          1
+     $_NAND_                         8
+     $_NOR_                          2
+     $_ORNOT_                        3
+     $_OR_                          49
+
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+
+[INFO] Applying tri-state buffer mapping from '/home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.tech/librelane/sg13g2_stdcell/tribuff_map.v'…
+
+96. Executing TECHMAP pass (map to technology primitives).
+
+96.1. Executing Verilog-2005 frontend: /home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.tech/librelane/sg13g2_stdcell/tribuff_map.v
+Parsing Verilog input from `/home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.tech/librelane/sg13g2_stdcell/tribuff_map.v' to AST representation.
+Generating RTLIL representation for module `\$_TBUF_'.
+Successfully finished Verilog frontend.
+
+96.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~3 debug messages>
+
+97. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+[INFO] Applying latch mapping from '/home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.tech/librelane/sg13g2_stdcell/latch_map.v'…
+
+98. Executing TECHMAP pass (map to technology primitives).
+
+98.1. Executing Verilog-2005 frontend: /home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.tech/librelane/sg13g2_stdcell/latch_map.v
+Parsing Verilog input from `/home/de_generic/.ciel/ciel/ihp-sg13g2/versions/cb7daaa8901016cf7c5d272dfa322c41f024931f/ihp-sg13g2/libs.tech/librelane/sg13g2_stdcell/latch_map.v' to AST representation.
+Generating RTLIL representation for module `\$_DLATCH_P_'.
+Generating RTLIL representation for module `\$_DLATCH_PN0_'.
+Generating RTLIL representation for module `\$_DLATCH_N_'.
+Generating RTLIL representation for module `\$_DLATCH_NN0_'.
+Successfully finished Verilog frontend.
+
+98.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~6 debug messages>
+
+99. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+100. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sg13g2_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    unmapped dff cell: $_DFF_P_
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sg13g2_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+100.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF cells in module `\F_isNaN':
+{
+   "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/07622f45bc504725b034b96b563af906.lib ",
+   "modules": {
+      "\\F_isNaN": {
+         "num_wires":         79,
+         "num_wire_bits":     110,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         78,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 15,
+            "$_AND_": 1,
+            "$_NAND_": 8,
+            "$_NOR_": 2,
+            "$_ORNOT_": 3,
+            "$_OR_": 49
+         }
+      }
+   },
+      "design": {
+         "num_wires":         79,
+         "num_wire_bits":     110,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         78,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 15,
+            "$_AND_": 1,
+            "$_NAND_": 8,
+            "$_NOR_": 2,
+            "$_ORNOT_": 3,
+            "$_OR_": 49
+         }
+      }
+}
+
+101. Printing statistics.
+
+=== F_isNaN ===
+
+   Number of wires:                 79
+   Number of wire bits:            110
+   Number of public wires:           7
+   Number of public wire bits:      38
+   Number of ports:                  7
+   Number of port bits:             38
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 78
+     $_ANDNOT_                      15
+     $_AND_                          1
+     $_NAND_                         8
+     $_NOR_                          2
+     $_ORNOT_                        3
+     $_OR_                          49
+
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+
+[INFO] Using generated ABC script '/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/06-yosys-synthesis/AREA_0.abc'…
+
+102. Executing ABC pass (technology mapping using ABC).
+
+102.1. Extracting gate netlist of module `\F_isNaN' to `/tmp/yosys-abc-G8Myfh/input.blif'..
+Extracted 78 gates and 110 wires to a netlist network with 32 inputs and 6 outputs.
+
+102.1.1. Executing ABC.
+Running ABC command: "/nix/store/f2psm4dyix5p4r8c1wyz8m67psng0rjb-yosys-0.54/bin/yosys-abc" -s -f /tmp/yosys-abc-G8Myfh/abc.script 2>&1
+ABC: ABC command line: "source /tmp/yosys-abc-G8Myfh/abc.script".
+ABC: 
+ABC: + read_blif /tmp/yosys-abc-G8Myfh/input.blif 
+ABC: + read_lib -w /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/07622f45bc504725b034b96b563af906.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.03 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_antennanp" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_decap_4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_decap_8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dfrbpq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dfrbpq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dlhq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dlhr_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dlhrq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dllr_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_dllrq_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sg13g2_ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sg13g2_ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sg13g2_ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sg13g2_einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sg13g2_einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sg13g2_einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_fill_1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_fill_2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_fill_4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "sg13g2_fill_8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_sdfrbpq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sg13g2_sdfrbpq_2".
+ABC: Library "sg13g2_stdcell_typ_1p20V_25C" from "/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/07622f45bc504725b034b96b563af906.lib" has 54 cells (18 skipped: 12 seq; 6 tri-state; 0 no func; 7 dont_use).  Time =     0.04 sec
+ABC: Memory =    2.63 MB. Time =     0.04 sec
+ABC: + read_constr -v /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "sg13g2_buf_4/X".
+ABC: Setting output load to be 6.000000.
+ABC: + source /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/06-yosys-synthesis/AREA_0.abc 
+ABC: Error: The network is combinational.
+ABC: Cannot find the default PI driving cell (sg13g2_buf_4/X) in the library.
+ABC: WireLoad = "none"  Gates =     26 (  7.7 %)   Cap =  4.4 ff (  5.8 %)   Area =      246.76 ( 88.5 %)   Delay =   602.67 ps  ( 57.7 %)               
+ABC: Path  0 --       1 : 0    1 pi             A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout =   3.0 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --      41 : 4    1 sg13g2_nor4_1  A =  10.89  Df = 134.8 -108.2 ps  S = 114.4 ps  Cin =  2.9 ff  Cout =   3.1 ff  Cmax = 300.0 ff  G =  100  
+ABC: Path  2 --      42 : 2    2 sg13g2_nand2_1 A =   7.26  Df = 219.8 -151.8 ps  S =  59.5 ps  Cin =  2.9 ff  Cout =   5.5 ff  Cmax = 300.0 ff  G =  187  
+ABC: Path  3 --      55 : 4    4 sg13g2_or4_1   A =  14.52  Df = 455.4 -279.0 ps  S =  68.8 ps  Cin =  2.5 ff  Cout =  11.5 ff  Cmax = 300.0 ff  G =  460  
+ABC: Path  4 --      56 : 4    1 sg13g2_nor4_1  A =  10.89  Df = 602.7 -373.7 ps  S = 165.6 ps  Cin =  2.9 ff  Cout =   6.0 ff  Cmax = 300.0 ff  G =  203  
+ABC: Start-point = pi0 (\a [1]).  End-point = po1 (\isInf).
+ABC: netlist                       : i/o =   32/    6  lat =    0  nd =    26  edge =     76  area =246.80  delay = 4.00  lev = 4
+ABC: + write_blif /tmp/yosys-abc-G8Myfh/output.blif 
+
+102.1.2. Re-integrating ABC results.
+ABC RESULTS:     sg13g2_and2_1 cells:        1
+ABC RESULTS:     sg13g2_and4_1 cells:        1
+ABC RESULTS:      sg13g2_inv_1 cells:        2
+ABC RESULTS:    sg13g2_nand2_1 cells:        5
+ABC RESULTS:   sg13g2_nand2b_1 cells:        1
+ABC RESULTS:    sg13g2_nand3_1 cells:        2
+ABC RESULTS:     sg13g2_nor2_1 cells:        2
+ABC RESULTS:     sg13g2_nor3_1 cells:        2
+ABC RESULTS:     sg13g2_nor4_1 cells:        8
+ABC RESULTS:      sg13g2_or4_1 cells:        2
+ABC RESULTS:        internal signals:       72
+ABC RESULTS:           input signals:       32
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+103. Executing SETUNDEF pass (replace undef values with defined constants).
+
+104. Executing HILOMAP pass (mapping to constant drivers).
+
+105. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+106. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \F_isNaN..
+Removed 0 unused cells and 110 unused wires.
+<suppressed ~1 debug messages>
+
+107. Executing INSBUF pass (insert buffer cells for connected wires).
+
+108. Executing CHECK pass (checking for obvious problems).
+Checking module F_isNaN...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/07622f45bc504725b034b96b563af906.lib ",
+   "modules": {
+      "\\F_isNaN": {
+         "num_wires":         27,
+         "num_wire_bits":     58,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         26,
+         "area":              246.758400,
+         "num_cells_by_type": {
+            "sg13g2_and2_1": 1,
+            "sg13g2_and4_1": 1,
+            "sg13g2_inv_1": 2,
+            "sg13g2_nand2_1": 5,
+            "sg13g2_nand2b_1": 1,
+            "sg13g2_nand3_1": 2,
+            "sg13g2_nor2_1": 2,
+            "sg13g2_nor3_1": 2,
+            "sg13g2_nor4_1": 8,
+            "sg13g2_or4_1": 2
+         }
+      }
+   },
+      "design": {
+         "num_wires":         27,
+         "num_wire_bits":     58,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         26,
+         "area":              246.758400,
+         "num_cells_by_type": {
+            "sg13g2_and2_1": 1,
+            "sg13g2_and4_1": 1,
+            "sg13g2_inv_1": 2,
+            "sg13g2_nand2_1": 5,
+            "sg13g2_nand2b_1": 1,
+            "sg13g2_nand3_1": 2,
+            "sg13g2_nor2_1": 2,
+            "sg13g2_nor3_1": 2,
+            "sg13g2_nor4_1": 8,
+            "sg13g2_or4_1": 2
+         }
+      }
+}
+
+109. Printing statistics.
+
+=== F_isNaN ===
+
+   Number of wires:                 27
+   Number of wire bits:             58
+   Number of public wires:           7
+   Number of public wire bits:      38
+   Number of ports:                  7
+   Number of port bits:             38
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 26
+     sg13g2_and2_1                   1
+     sg13g2_and4_1                   1
+     sg13g2_inv_1                    2
+     sg13g2_nand2_1                  5
+     sg13g2_nand2b_1                 1
+     sg13g2_nand3_1                  2
+     sg13g2_nor2_1                   2
+     sg13g2_nor3_1                   2
+     sg13g2_nor4_1                   8
+     sg13g2_or4_1                    2
+
+   Chip area for module '\F_isNaN': 246.758400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+110. Executing Verilog backend.
+Dumping module `\F_isNaN'.
+
+111. Executing JSON backend.

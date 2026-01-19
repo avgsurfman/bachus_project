@@ -3,10 +3,6 @@
 //  CC 2025 Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Gora.
 //  Licensed under the BSD 3-clause license and the Apache License 2.0.
 
-`include "../fulladder_and.sv"
-`include "../../adder/hdl/sklansky_adder.sv"
-
-
 // tested on 24 as well
 module multiplier_bw_unsigned#(parameter SIZE = 32)
                               (input logic [SIZE-1:0] a, b,

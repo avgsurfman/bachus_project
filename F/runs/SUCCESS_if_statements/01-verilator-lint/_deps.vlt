@@ -1,0 +1,5 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/b7f43376b6ff4eb1bfcec4e88adbfc18.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-22-20/tmp/b7f43376b6ff4eb1bfcec4e88adbfc18.bb.v"

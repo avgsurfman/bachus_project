@@ -32,7 +32,7 @@ logic [7:0] carry, save, exp;
 logic expOverflow;
 
 // Optimized CSA Adder
-// See CMOS VLSI 11.3
+// See CMOS VLSI by Weste&Harris, Chapter 11.3
 assign carry[7] = a[30] | b [30];
 assign save[7] = ~ (a[30] ^ b[30]);
 assign carry[6] = a[29] & b[29];
@@ -74,7 +74,7 @@ multiplier_bw_unsigned#(SIZE = 24)
 logic shiftDue [4:0]; 
 
 // detect leading ones 
-// priorityEnc detectOne(mul[46:23], shiftDue); // detects first zero
+// priorityEnc detectOne(mul[46:23], shiftDue); // detects first one
 
 // if shift due is nonzero, substract exp[7:0] by encoded amount (sets underflow); 
 

@@ -28,8 +28,10 @@ F_isNaN        encoderB(B, isNaNA, isInfB, isSubnormalB, isZeroB, isNormalB);
 // 2. Shift them (with guard bits)
 
 // 3. Add/substract (26-bit adder) based on a[31] and b[31]
+// REMEMBER IMPLICIT ONE!!!
 
-// 4. Normalize exp (+1, 2/-1)
+
+// 4. Normalize exp (+1, 2/-23)
 // 1.999 + 1.9999 == 3.9999999999 > max shift two
 // -1.00...1 - 1.9999999 == about -3 >> max one shift
 // 1.0000..1 - 1.999 ==  -0.999...(8) == one shift 

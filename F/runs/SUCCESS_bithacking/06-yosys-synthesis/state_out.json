@@ -1,0 +1,14 @@
+{
+    "json_h": "/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-56-28/05-yosys-jsonheader/F_isNaN.h.json",
+    "nl": "/home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-56-28/06-yosys-synthesis/F_isNaN.nl.v",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 2,
+        "design__inferred_latch__count": 0,
+        "design__instance__count": 22,
+        "design__instance__area": 205.0272,
+        "design__instance_unmapped__count": 0,
+        "synthesis__check_error__count": 1
+    }
+}

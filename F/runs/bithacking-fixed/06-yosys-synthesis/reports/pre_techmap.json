@@ -1,0 +1,45 @@
+{
+   "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_16-14-40/tmp/78c4470cb2cc4a95965ef1fc8da23a4e.lib ",
+   "modules": {
+      "\\F_isNaN": {
+         "num_wires":         46,
+         "num_wire_bits":     77,
+         "num_pub_wires":     6,
+         "num_pub_wire_bits": 37,
+         "num_ports":         6,
+         "num_port_bits":     37,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         45,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 3,
+            "$_AND_": 1,
+            "$_NAND_": 4,
+            "$_NOR_": 2,
+            "$_OR_": 35
+         }
+      }
+   },
+      "design": {
+         "num_wires":         46,
+         "num_wire_bits":     77,
+         "num_pub_wires":     6,
+         "num_pub_wire_bits": 37,
+         "num_ports":         6,
+         "num_port_bits":     37,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         45,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 3,
+            "$_AND_": 1,
+            "$_NAND_": 4,
+            "$_NOR_": 2,
+            "$_OR_": 35
+         }
+      }
+}
+

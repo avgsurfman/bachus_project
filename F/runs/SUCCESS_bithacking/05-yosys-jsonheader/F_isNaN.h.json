@@ -1,0 +1,462 @@
+{
+  "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
+  "modules": {
+    "F_isNaN": {
+      "attributes": {
+        "hdlname": "F_isNaN",
+        "top": "00000000000000000000000000000001",
+        "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:1.1-18.10"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 ]
+        },
+        "isNaN": {
+          "direction": "output",
+          "bits": [ 34 ]
+        },
+        "isInf": {
+          "direction": "output",
+          "bits": [ 35 ]
+        },
+        "isNegInf": {
+          "direction": "output",
+          "bits": [ 36 ]
+        },
+        "isSubnormal": {
+          "direction": "output",
+          "bits": [ 37 ]
+        },
+        "isZero": {
+          "direction": "output",
+          "bits": [ 38 ]
+        },
+        "isNormal": {
+          "direction": "output",
+          "bits": [ 39 ]
+        }
+      },
+      "cells": {
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$6": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.28-12.43"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 40 ],
+            "B": [ 24 ],
+            "Y": [ 41 ]
+          }
+        },
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$9": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.28-12.55"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 41 ],
+            "B": [ 42 ],
+            "Y": [ 34 ]
+          }
+        },
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:13$10": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:13.28-13.47"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 40 ],
+            "B": [ 43 ],
+            "Y": [ 35 ]
+          }
+        },
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:14$11": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:14.28-14.47"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 40 ],
+            "B": [ 43 ],
+            "Y": [ 38 ]
+          }
+        },
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:15$13": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:15.28-15.50"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 44 ],
+            "B": [ 45 ],
+            "Y": [ 37 ]
+          }
+        },
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:16$16": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:16.28-16.49"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 46 ],
+            "B": [ 44 ],
+            "Y": [ 39 ]
+          }
+        },
+        "$logic_not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:10$5": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:10.24-10.33"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 45 ],
+            "Y": [ 43 ]
+          }
+        },
+        "$logic_not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$8": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.46-12.55"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 47 ],
+            "Y": [ 42 ]
+          }
+        },
+        "$logic_not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:9$3": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:9.24-9.34"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 48 ],
+            "Y": [ 44 ]
+          }
+        },
+        "$not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:16$14": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:16.28-16.36"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 40 ],
+            "Y": [ 46 ]
+          }
+        },
+        "$reduce_and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:8$1": {
+          "hide_name": 1,
+          "type": "$reduce_and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:8.25-8.34"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 25, 26, 27, 28, 29, 30, 31, 32 ],
+            "Y": [ 40 ]
+          }
+        },
+        "$reduce_or$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:10$4": {
+          "hide_name": 1,
+          "type": "$reduce_or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000010111",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:10.24-10.33"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ],
+            "Y": [ 45 ]
+          }
+        },
+        "$reduce_or$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$7": {
+          "hide_name": 1,
+          "type": "$reduce_or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000010110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.46-12.55"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ],
+            "Y": [ 47 ]
+          }
+        },
+        "$reduce_or$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:9$2": {
+          "hide_name": 1,
+          "type": "$reduce_or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:9.24-9.34"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 25, 26, 27, 28, 29, 30, 31, 32 ],
+            "Y": [ 48 ]
+          }
+        }
+      },
+      "netnames": {
+        "$and$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$6_Y": {
+          "hide_name": 1,
+          "bits": [ 41 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.28-12.43"
+          }
+        },
+        "$logic_not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$8_Y": {
+          "hide_name": 1,
+          "bits": [ 42 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.46-12.55"
+          }
+        },
+        "$not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:15$12_Y": {
+          "hide_name": 1,
+          "bits": [ 45 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:15.40-15.50"
+          }
+        },
+        "$not$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:16$14_Y": {
+          "hide_name": 1,
+          "bits": [ 46 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:16.28-16.36"
+          }
+        },
+        "$reduce_or$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12$7_Y": {
+          "hide_name": 1,
+          "bits": [ 47 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:12.46-12.55"
+          }
+        },
+        "$reduce_or$/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:9$2_Y": {
+          "hide_name": 1,
+          "bits": [ 48 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:9.24-9.34"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:1.42-1.43"
+          }
+        },
+        "expOnes": {
+          "hide_name": 0,
+          "bits": [ 40 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:6.11-6.18"
+          }
+        },
+        "expZeroes": {
+          "hide_name": 0,
+          "bits": [ 44 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:6.20-6.29"
+          }
+        },
+        "isInf": {
+          "hide_name": 0,
+          "bits": [ 35 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:2.42-2.47"
+          }
+        },
+        "isNaN": {
+          "hide_name": 0,
+          "bits": [ 34 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:2.35-2.40"
+          }
+        },
+        "isNegInf": {
+          "hide_name": 0,
+          "bits": [ 36 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:2.49-2.57"
+          }
+        },
+        "isNormal": {
+          "hide_name": 0,
+          "bits": [ 39 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:3.43-3.51"
+          }
+        },
+        "isSubnormal": {
+          "hide_name": 0,
+          "bits": [ 37 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:3.22-3.33"
+          }
+        },
+        "isZero": {
+          "hide_name": 0,
+          "bits": [ 38 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:3.35-3.41"
+          }
+        },
+        "sigZeroes": {
+          "hide_name": 0,
+          "bits": [ 43 ],
+          "attributes": {
+            "src": "/home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:6.31-6.40"
+          }
+        }
+      }
+    }
+  }
+}

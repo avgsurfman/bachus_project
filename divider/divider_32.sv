@@ -1,7 +1,6 @@
 // Unsigned 32-bit divider. Calculates the difference for each row (d),
 // then outputs the quotient and the remainder.
 
-`include "divider_block.sv"
 
 module divider_32(input logic [31:0] a,b,
                   output logic [31:0] rem, q);

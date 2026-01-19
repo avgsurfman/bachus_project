@@ -1,0 +1,53 @@
+{
+   "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/de_generic/my_designs/bachus_project/F/runs/RUN_2026-01-15_15-56-28/tmp/eca0e940489648ef833d7087028ecf78.lib ",
+   "modules": {
+      "\\F_isNaN": {
+         "num_wires":         23,
+         "num_wire_bits":     54,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         22,
+         "area":              205.027200,
+         "num_cells_by_type": {
+            "sg13g2_and2_1": 2,
+            "sg13g2_buf_1": 1,
+            "sg13g2_nand2_1": 4,
+            "sg13g2_nand4_1": 2,
+            "sg13g2_nor2_1": 2,
+            "sg13g2_nor2b_1": 1,
+            "sg13g2_nor4_1": 9,
+            "sg13g2_tielo": 1
+         }
+      }
+   },
+      "design": {
+         "num_wires":         23,
+         "num_wire_bits":     54,
+         "num_pub_wires":     7,
+         "num_pub_wire_bits": 38,
+         "num_ports":         7,
+         "num_port_bits":     38,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         22,
+         "area":              205.027200,
+         "num_cells_by_type": {
+            "sg13g2_and2_1": 2,
+            "sg13g2_buf_1": 1,
+            "sg13g2_nand2_1": 4,
+            "sg13g2_nand4_1": 2,
+            "sg13g2_nor2_1": 2,
+            "sg13g2_nor2b_1": 1,
+            "sg13g2_nor4_1": 9,
+            "sg13g2_tielo": 1
+         }
+      }
+}
+

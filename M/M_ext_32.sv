@@ -4,14 +4,10 @@
 // TODO: replace this with a SRT divider in the future.
 // CC Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Góra
 
-`include "../multiplier/signed_unsigned/multiplier.sv"
-`include "../divider/divider_32.sv"
-`include "../adder/hdl/sklansky_adder.sv"
-
 
 module M_ext_32(input logic [31:0] a,b,
              input logic sign, mix, mult_or_div,
-             input logic clk,
+             //input logic clk,
              output logic [31:0] uh, lh);
 // mult_or_div --- signal for mux AKA funct3[0]
 // mult_or_div - default 0 for mult, 1 for division
@@ -46,7 +42,7 @@ logic [31:0] div_q, div_rem;
 //// Divider instantiation
 
 //                       dividend  divisor    
-divider32 div_unsigned(.a(a_abs), .b(b_abs), .rem(div_rem), .q(div_q));
+divider_32 div_unsigned(.a(a_abs), .b(b_abs), .rem(div_rem), .q(div_q));
 
 // Another mux to convert the results back on the fly
 

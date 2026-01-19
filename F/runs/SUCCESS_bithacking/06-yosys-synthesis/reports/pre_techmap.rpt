@@ -1,0 +1,24 @@
+88. Printing statistics.
+
+=== F_isNaN ===
+
+   Number of wires:                 46
+   Number of wire bits:             77
+   Number of public wires:           7
+   Number of public wire bits:      38
+   Number of ports:                  7
+   Number of port bits:             38
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 43
+     $_ANDNOT_                       4
+     $_NAND_                         4
+     $_NOR_                          1
+     $_OR_                          34
+
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+

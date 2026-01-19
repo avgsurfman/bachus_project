@@ -1,0 +1,15 @@
+%Warning-UNUSEDSIGNAL: /home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:1:42: Bits of signal are not used: 'a'[31]
+                                                                                       : ... note: In instance 'F_isNaN'
+    1 | module F_isNaN       (input logic [31:0] a,
+      |                                          ^
+                       ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.038
+                       ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+%Warning-UNDRIVEN: /home/de_generic/my_designs/bachus_project/F/F_isNaN_alt.sv:2:49: Signal is not driven: 'isNegInf'
+                                                                                   : ... note: In instance 'F_isNaN'
+    2 |                      output logic isNaN, isInf, isNegInf, 
+      |                                                 ^~~~~~~~
+                   ... For warning description see https://verilator.org/warn/UNDRIVEN?v=5.038
+                   ... Use "/* verilator lint_off UNDRIVEN */" and lint_on around source to disable this message.
+- V e r i l a t i o n   R e p o r t: Verilator 5.038 2025-07-08 rev v5.038
+- Verilator: Built from 0.088 MB sources in 86 modules, into 0.015 MB in 5 C++ files needing 0.000 MB
+- Verilator: Walltime 0.119 s (elab=0.014, cvt=0.048, bld=0.000); cpu 0.051 s on 1 threads; alloced 10.859 MB

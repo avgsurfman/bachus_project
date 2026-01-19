@@ -1,0 +1,8 @@
+
+16. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\F_isNaN.\isNaN' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isInf' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isNegInf' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isSubnormal' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isZero' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.
+No latch inferred for signal `\F_isNaN.\isNormal' from process `\F_isNaN.$proc$/home/de_generic/my_designs/bachus_project/F/F_isNaN.sv:0$1'.

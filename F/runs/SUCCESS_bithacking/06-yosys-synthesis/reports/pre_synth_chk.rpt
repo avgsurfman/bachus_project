@@ -1,0 +1,5 @@
+
+20. Executing CHECK pass (checking for obvious problems).
+Checking module F_isNaN...
+Warning: Wire F_isNaN.\isNegInf is used but has no driver.
+Found and reported 1 problems.

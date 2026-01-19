@@ -1,0 +1,25 @@
+102. Printing statistics.
+
+=== F_isNaN ===
+
+   Number of wires:                 24
+   Number of wire bits:             55
+   Number of public wires:           6
+   Number of public wire bits:      37
+   Number of ports:                  6
+   Number of port bits:             37
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 23
+     sg13g2_and2_1                   2
+     sg13g2_inv_1                    1
+     sg13g2_nand2_1                  4
+     sg13g2_nand3b_1                 1
+     sg13g2_nand4_1                  2
+     sg13g2_nor2_1                   4
+     sg13g2_nor4_1                   9
+
+   Chip area for module '\F_isNaN': 214.099200
+     of which used for sequential elements: 0.000000 (0.00%)
+
