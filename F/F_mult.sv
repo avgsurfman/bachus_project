@@ -1,6 +1,6 @@
-//// Multiply module. 
-/// TODO: replace with comppressors, specialized prefix adder,
-// In the future (so probably never)
+//// Three-stage Floating-point Multiply module (Calculate, Shift, Round).
+/// TODO: replace with a better mult module w/ 
+// comppressors specialized prefix adder in the future (so probably never)
 
 `include "../multiplier/unsigned/multiplier.sv"
 `include "../adder/hdl/sklansky_adder.sv"
@@ -58,31 +58,84 @@ sklansky_adder #(8) exponent_add(
                       .cout(expOverflow), 
                       .y(exp[7:0]);
 
-
-//// Mantissa, Significand
+/// Mantissa mult
 
 logic [47:0] mul;
 
-/// Mult with implicit ones
+/// Mult with implicit ones 
+// TODO: this only works for normalized nums
+
 multiplier_bw_unsigned#(SIZE = 24)
                        (.a({1'b1, a[22:0]}), 
                         .b({1'b1, b[22:0]}),
                         .y(mul));
+// might be 01.0000 or 10.00000 so we might have to shift by one
 
-/// shiftDue uses a priority encoder with casez to shift the result until it's normalized? maybe?
+/// NORMALIZED MULTIPLICATION
 
-logic shiftDue [4:0]; 
+assign shiftDue = mul[47];
 
-// detect leading ones 
-// priorityEnc detectOne(mul[46:23], shiftDue); // detects first one
+// detect the first leading one with a priority encoder;
+//F_priority_encoder leading_one(mul[47:24], shiftDue); 
 
-// if shift due is nonzero, substract exp[7:0] by encoded amount (sets underflow); 
+/// EXPONENT
 
-// shift right logically (mantissa is not zero), and round
-// module shifter(mul[46:0], shiftDue, result)
+logic [7:0] exp_2;
+logic expOverflow2;
 
-// perform second rounding ONCE if not normalize
-// what are guard digits?
+// Add the exponent (might overflow or underflow)
+sklansky_adder #(8) exponent_add_2( 
+                      .a(exp[7:0]), 
+                      .b({7'b0, shiftDue}),
+                      .cin(1'b0),
+                      .cout(expOverflow2), // TODO: FIX!!! 
+                      .y(exp_2);
 
-// need rounding based on FSCR
+/// mantissa
+// shift by one if necessary, storing implicit zero
+logic [22:0] shiftedVal;    // 23 bits wide
+logic guard, sticky;
+
+assign shiftedVal = shiftDue ? mul[46:24] : mul[45:23];
+assign guard = shiftDue ? mul[22] : mul[21];
+assign sticky = shiftDue ? | mul[21:0] : |mul[20:0];    
+
+//assign shiftedVal = mul >> shiftDue;
+
+//assign shiftedVal = (|shiftDue [4:0]) ? 
+//    (mul >> shiftDue) : mul[23:0]; 
+
+ 
+//// ROUNDING
+
+// perform second rounding ONCE if not yet normalized.
+// case(rounding)
+// 3'b000:
+// 3'b001:
+// endcase  
+
+// need rounding based on FCSR flags
+
+//// END OUTPUT
+
+/// Final assembly 
+
+// Sign
+assign y[31] = a[31] ^ b[31];
+
+// Exponent
+assign y[30:23] = exp_2;
+
+// Mantissa
+assign y[22:0] = shiftedVal;
+
+
+/// Flags
+// NV DZ OF UF NX
+assign flags[4] = 1'b0
+assign flags[3] = 1'b0;
+assign flags[2] = expOverflow | expOverflow;
+assign flags[1] = 1'b0
+assign flags[0] = 1'b0;
+
 endmodule

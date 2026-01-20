@@ -1,0 +1,8 @@
+{
+  "DESIGN_NAME": "F_priority_encoder",
+  "VERILOG_FILES": ["dir::F_priority_encoder.sv"],
+  "CLOCK_PERIOD": 5,
+  "CLOCK_PORT": "clk",
+  "PDK": "ihp-sg13g2"
+}
+
