@@ -15,11 +15,11 @@ module F_mult (input logic [31:0] a, b,
                
 //always_ff@(posedge clk) register?
 
-logic isNanA, isInfA, isSubnormalA, isZeroA, isNormalA;
-logic isNanB, isInfB, isSubnormalB, isZeroB, isNormalB;
+logic isNaNA, isInfA, isSubnormalA, isZeroA, isNormalA;
+logic isNaNB, isInfB, isSubnormalB, isZeroB, isNormalB;
 
-F_isNaN        encoderA(A, isNaNA, isInfA, isSubnormalA, isZeroA, isNormalA);
-F_isNaN        encoderB(B, isNaNA, isInfB, isSubnormalB, isZeroB, isNormalB);
+F_isNaN        encoder_a(a, isNaNA, isInfA, isSubnormalA, isZeroA, isNormalA);
+F_isNaN        encoder_b(b, isNaNB, isInfB, isSubnormalB, isZeroB, isNormalB);
 
 
 //// Exponent
@@ -43,10 +43,10 @@ assign carry[4] = a[27] & b[27];
 assign save[4] = a[27] ^ b[27];
 assign carry[3] = a[26] & b[26];
 assign save[3] = a[26] ^ b[26];
-assign carry[2] = a[25] & b[25]
-assign save[2] = a[25] ^ b[25]
-assign carry[1] = a[24] & b[24]
-assign save[1] = a[24] ^ b[24]
+assign carry[2] = a[25] & b[25];
+assign save[2] = a[25] ^ b[25];
+assign carry[1] = a[24] & b[24];
+assign save[1] = a[24] ^ b[24];
 assign carry[0] = a[23] | b[23];
 assign save[0] = ~ (a[23] ^ b[23]);
 
@@ -56,7 +56,7 @@ sklansky_adder #(8) exponent_add(
                       .b(save[7:0]),
                       .cin(1'b0),
                       .cout(expOverflow), 
-                      .y(exp[7:0]);
+                      .y(exp[7:0]));
 
 /// Mantissa mult
 
@@ -65,18 +65,15 @@ logic [47:0] mul;
 /// Mult with implicit ones 
 // TODO: this only works for normalized nums
 
-multiplier_bw_unsigned#(SIZE = 24)
+multiplier_bw_unsigned #(24) multiplier
                        (.a({1'b1, a[22:0]}), 
                         .b({1'b1, b[22:0]}),
                         .y(mul));
+/// NORMALIZED MULTIPLICATION
 // might be 01.0000 or 10.00000 so we might have to shift by one
 
-/// NORMALIZED MULTIPLICATION
-
+logic shiftDue;
 assign shiftDue = mul[47];
-
-// detect the first leading one with a priority encoder;
-//F_priority_encoder leading_one(mul[47:24], shiftDue); 
 
 /// EXPONENT
 
@@ -89,7 +86,7 @@ sklansky_adder #(8) exponent_add_2(
                       .b({7'b0, shiftDue}),
                       .cin(1'b0),
                       .cout(expOverflow2), // TODO: FIX!!! 
-                      .y(exp_2);
+                      .y(exp_2));
 
 /// mantissa
 // shift by one if necessary, storing implicit zero
@@ -97,8 +94,8 @@ logic [22:0] shiftedVal;    // 23 bits wide
 logic guard, sticky;
 
 assign shiftedVal = shiftDue ? mul[46:24] : mul[45:23];
-assign guard = shiftDue ? mul[22] : mul[21];
-assign sticky = shiftDue ? | mul[21:0] : |mul[20:0];    
+assign guard = shiftDue ? mul[23] : mul[22];
+assign sticky = shiftDue ? | mul[22:0] : |mul[21:0];    
 
 //assign shiftedVal = mul >> shiftDue;
 
@@ -132,10 +129,10 @@ assign y[22:0] = shiftedVal;
 
 /// Flags
 // NV DZ OF UF NX
-assign flags[4] = 1'b0
+assign flags[4] = 1'b0;
 assign flags[3] = 1'b0;
-assign flags[2] = expOverflow | expOverflow;
-assign flags[1] = 1'b0
-assign flags[0] = 1'b0;
+assign flags[2] = expOverflow | expOverflow2;
+assign flags[1] = 1'b0;
+assign flags[0] = guard | sticky;
 
 endmodule
