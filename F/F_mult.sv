@@ -1,10 +1,7 @@
 //// Three-stage Floating-point Multiply module (Calculate, Shift, Round).
 /// TODO: replace with a better mult module w/ 
 // comppressors specialized prefix adder in the future (so probably never)
-
-`include "../multiplier/unsigned/multiplier.sv"
-`include "../adder/hdl/sklansky_adder.sv"
-`include "./F_isNaN.sv"
+// CC Franciszek Moszczuk
 
 module F_mult (input logic [31:0] a, b,
                input logic [2:0]  rounding,  
@@ -26,9 +23,10 @@ F_isNaN        encoder_b(b, isNaNB, isInfB, isSubnormalB, isZeroB, isNormalB);
 /// Adds expA + expB - 127 (bias)
 
 
-/// Need a generate statement here
-
-logic [7:0] carry, save, exp;
+///// Need a generate statement here
+//
+logic [7:0] carry, save;
+logic [8:0] exp;
 logic expOverflow;
 
 // Optimized CSA Adder
@@ -53,21 +51,24 @@ assign save[0] = ~ (a[23] ^ b[23]);
 // maybe 9 to account for overflow?
 sklansky_adder #(8) exponent_add( 
                       .a(carry[7:0]), 
-                      .b(save[7:0]),
+                      .b({1'b0, save[7:1]}),
                       .cin(1'b0),
                       .cout(expOverflow), 
-                      .y(exp[7:0]));
+                      .y(exp[8:1]));
+
+assign exp[0] = save[0];
 
 /// Mantissa mult
 
 logic [47:0] mul;
 
-/// Mult with implicit ones 
-// TODO: this only works for normalized nums
+logic isZeroOrSubnormalA, isZeroOrSubnormalB;
+assign isZeroOrSubnormalA = isZeroA   | isSubnormalA;   
+assign isZeroOrSubnormalB = isZeroB   | isSubnormalB;
 
 multiplier_bw_unsigned #(24) multiplier
-                       (.a({1'b1, a[22:0]}), 
-                        .b({1'b1, b[22:0]}),
+                       (.a({ ~isZeroOrSubnormalA, a[22:0]}), 
+                        .b({ ~isZeroOrSubnormalB, b[22:0]}),
                         .y(mul));
 /// NORMALIZED MULTIPLICATION
 // might be 01.0000 or 10.00000 so we might have to shift by one
@@ -88,8 +89,9 @@ sklansky_adder #(8) exponent_add_2(
                       .cout(expOverflow2), // TODO: FIX!!! 
                       .y(exp_2));
 
-/// mantissa
-// shift by one if necessary, storing implicit zero
+
+/// MANTISSA
+// shift by one if necessary, omit implicit zero
 logic [22:0] shiftedVal;    // 23 bits wide
 logic guard, sticky;
 
@@ -105,15 +107,47 @@ assign sticky = shiftDue ? | mul[22:0] : |mul[21:0];
  
 //// ROUNDING
 
-// perform second rounding ONCE if not yet normalized.
-// case(rounding)
-// 3'b000:
-// 3'b001:
-// endcase  
+//    RNE       = 3'b000,
+//    RTZ       = 3'b001,
+//    RDN       = 3'b010,
+//    RUP       = 3'b011,
+//    RMM       = 3'b100,
+//    RESERVED  = 3'b101,
+//    RESERVED2 = 3'b110,
+//    DYN       = 3'b111
 
-// need rounding based on FCSR flags
+// chooses rounding based on FCSR flags
+//logic rounded_wire[22:0];
+//
+//always_comb begin: rounding_mode
+//    case(rounding)
+//    3'b000:
+//    3'b001: 
+//    default:
+//endcase 
+//end
+  
+/// RNE:
+// 1)
+//perform second rounding once for RNE if not yet normalized.
+/// RTZ:
+// Truncate (current implementation)
+/// RDN
+// Truncate for positive, add 1 for negative
+/// RUP
+// Add 1 to positive, truncate for negatives
+/// RMM:
+//  Round to nearest but ties to magnitude (???)
 
 //// END OUTPUT
+
+/// exceptions
+
+//always_comb begin
+//    if((isNaNB | isNaNA) | (isZeroA & isInfB) | (isZeroB & isInfA)) 
+//        y =  
+//    else if 
+
 
 /// Final assembly 
 
@@ -129,10 +163,10 @@ assign y[22:0] = shiftedVal;
 
 /// Flags
 // NV DZ OF UF NX
-assign flags[4] = 1'b0;
-assign flags[3] = 1'b0;
-assign flags[2] = expOverflow | expOverflow2;
-assign flags[1] = 1'b0;
+assign flags[4] = 1'b0;    // TODO: CHANGE THIS
+assign flags[3] = 1'b0;    // no division in this mode
+assign flags[2] = expOverflow | expOverflow2;  // bad and doesn't work
+assign flags[1] = 1'b0;    // should be set if the exponent underflows, giving a subnormal
 assign flags[0] = guard | sticky;
 
 endmodule
