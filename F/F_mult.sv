@@ -27,7 +27,7 @@ F_isNaN        encoder_b(b, isNaNB, isInfB, isSubnormalB, isZeroB, isNormalB);
 //
 logic [7:0] carry, save;
 logic [8:0] exp;
-logic expOverflow;
+logic expOverflow, expUnderflow;
 
 // Optimized CSA Adder
 // See CMOS VLSI by Weste&Harris, Chapter 11.3
@@ -79,13 +79,14 @@ assign shiftDue = mul[47];
 /// EXPONENT
 
 logic [7:0] exp_2;
-logic expOverflow2;
+logic expOverflow2; // TODO: REMOVE
+logic exponentRoundCarry;
 
 // Add the exponent (might overflow or underflow)
 sklansky_adder #(8) exponent_add_2( 
                       .a(exp[7:0]), 
                       .b({7'b0, shiftDue}),
-                      .cin(1'b0),
+                      .cin(exponentRoundCarry),
                       .cout(expOverflow2), // TODO: FIX!!! 
                       .y(exp_2));
 
@@ -94,6 +95,7 @@ sklansky_adder #(8) exponent_add_2(
 // shift by one if necessary, omit implicit zero
 logic [22:0] shiftedVal;    // 23 bits wide
 logic guard, sticky;
+
 
 assign shiftedVal = shiftDue ? mul[46:24] : mul[45:23];
 assign guard = shiftDue ? mul[23] : mul[22];
@@ -117,15 +119,36 @@ assign sticky = shiftDue ? | mul[22:0] : |mul[21:0];
 //    DYN       = 3'b111
 
 // chooses rounding based on FCSR flags
-//logic rounded_wire[22:0];
-//
-//always_comb begin: rounding_mode
-//    case(rounding)
-//    3'b000:
-//    3'b001: 
-//    default:
-//endcase 
-//end
+logic rounded_wire[23:0];
+logic round_carry, signOfResult;
+// we need signOfResult early for rounding
+assign signOfResult = a[31] ^ b[31];
+
+always_comb begin: rounding_mode
+    case(rounding)
+    3'b000: begin 
+                if(guard & (sticky | shiftedVal[0]))
+                      round_carry = 1'b1;
+                else round_carry = 1'b0;
+            end
+    3'b001: round_carry = 1'b0;
+    3'b010: begin 
+                if(signOfResult & (guard | sticky))
+                    round_carry = 1'b1;
+                else round_carry = 1'b0;
+            end
+    3'b011: begin 
+                if(~signOfResult & (guard | sticky))
+                    round_carry = 1'b1;
+                else round_carry = 1'b0;
+            end
+    default: begin //RNE is the default
+                if(guard & (sticky | shiftedVal[0]))
+                      round_carry = 1'b1;
+                else round_carry = 1'b0;
+            end
+endcase 
+end
   
 /// RNE:
 // 1)
@@ -138,35 +161,43 @@ assign sticky = shiftDue ? | mul[22:0] : |mul[21:0];
 // Add 1 to positive, truncate for negatives
 /// RMM:
 //  Round to nearest but ties to magnitude (???)
+//  DYN
+//  Wtf????
 
 //// END OUTPUT
 
-/// exceptions
+//// Final assembly & Exceptions
 
-//always_comb begin
-//    if((isNaNB | isNaNA) | (isZeroA & isInfB) | (isZeroB & isInfA)) 
-//        y =  
-//    else if 
+always_comb begin
+    if((isNaNB | isNaNA) | (isZeroA & isInfB) | (isZeroB & isInfA)) 
+        y = 32'h7fc00000;
+    else if (expOverflow) begin
+        y[30:0] = 31'h7f80000;
+        y[31] = signOfResult; 
+    end
+    else if (expUnderflow) begin
+        y[30:23] = 8'h00; // subnormal exp
+        y[22:0]  = 23'hDEAD5B; //TODO: FIX
+    end
+    else begin             // normal output 
+        // Exponent
+        y[30:23] = exp_2;
+        // Mantissa
+        y[22:0] = shiftedVal;
+    end
+    //
+end
+assign y[31] = signOfResult;
 
 
-/// Final assembly 
-
-// Sign
-assign y[31] = a[31] ^ b[31];
-
-// Exponent
-assign y[30:23] = exp_2;
-
-// Mantissa
-assign y[22:0] = shiftedVal;
 
 
 /// Flags
 // NV DZ OF UF NX
 assign flags[4] = 1'b0;    // TODO: CHANGE THIS
 assign flags[3] = 1'b0;    // no division in this mode
-assign flags[2] = expOverflow | expOverflow2;  // bad and doesn't work
-assign flags[1] = 1'b0;    // should be set if the exponent underflows, giving a subnormal
+assign flags[2] = expOverflow;   // TODO: Implement proper OV/UF detection. 
+assign flags[1] = expUnderflow;  // should be set if the exponent underflows, giving a subnormal -- doesn't work
 assign flags[0] = guard | sticky;
 
 endmodule
