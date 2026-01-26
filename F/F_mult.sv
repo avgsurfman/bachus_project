@@ -21,14 +21,21 @@ F_isNaN        encoder_b(b, isNaNB, isInfB, isSubnormalB, isZeroB, isNormalB);
 
 //// Exponent
 /// Adds expA + expB - 127 (bias)
+// add expA + expB 
+// max: FF + FF + -127 = FF + FF + 1FE 
+// min: -127 + -127 == 00 + 00 + 181 == 181
+// store 9th bit
+// Pretty sure this won't work for negative exps...
 
-
-///// Need a generate statement here
+///// Need a generate statement here?
 //
 logic [7:0] carry, save;
-logic [8:0] exp;
+logic [8:0] exp; // should be 10 bits wide
 logic expOverflow, expUnderflow;
 
+
+
+// TODO: Change this. This can't detect overflows.
 // Optimized CSA Adder
 // See CMOS VLSI by Weste&Harris, Chapter 11.3
 assign carry[7] = a[30] | b [30];
@@ -53,7 +60,7 @@ sklansky_adder #(8) exponent_add(
                       .a(carry[7:0]), 
                       .b({1'b0, save[7:1]}),
                       .cin(1'b0),
-                      .cout(expOverflow), 
+                      .cout(), 
                       .y(exp[8:1]));
 
 assign exp[0] = save[0];
@@ -172,14 +179,16 @@ always_comb begin
     if((isNaNB | isNaNA) | (isZeroA & isInfB) | (isZeroB & isInfA)) 
         y = 32'h7fc00000;
     else if (expOverflow) begin
-        y[30:0] = 31'h7f80000;
         y[31] = signOfResult; 
+        y[30:0] = 31'h7f80000;
     end
     else if (expUnderflow) begin
+        y[31]    = signOfResult;
         y[30:23] = 8'h00; // subnormal exp
         y[22:0]  = 23'hDEAD5B; //TODO: FIX
     end
     else begin             // normal output 
+        y[31]    = signOfResult;
         // Exponent
         y[30:23] = exp_2;
         // Mantissa
@@ -187,9 +196,7 @@ always_comb begin
     end
     //
 end
-assign y[31] = signOfResult;
-
-
+//assign y[31] = signOfResult;
 
 
 /// Flags

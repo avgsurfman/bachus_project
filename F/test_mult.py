@@ -15,6 +15,7 @@ async def mult_float_basic_2x2(dut):
     
     dut.a.value = A
     dut.b.value = B
+    dut.rounding.value = 0 # RNE
 
     await Timer(2, unit="ns")
     
@@ -34,13 +35,14 @@ async def mult_float_exp_basic_4x4(dut):
     
     dut.a.value = A
     dut.b.value = B
-
+    dut.rounding.value = 0 # RNE
+    
     await Timer(2, unit="ns")
 
     expected = 0b01000001100000000000000000000000
 
     assert dut.y.value == expected, (
-        f"Div result is incorrect: A={dut.a.value}, B={dut.b.value} {dut.y.value} != {expected}"
+        f"Mult result is incorrect: A={dut.a.value}, B={dut.b.value} {dut.y.value} != {expected}"
     )
 
 @cocotb.test()
@@ -52,6 +54,7 @@ async def mult_float_exp_19_19(dut):
     
     dut.a.value = A
     dut.b.value = B
+    dut.rounding.value = 0 # RNE
 
     await Timer(2, unit="ns")
 
