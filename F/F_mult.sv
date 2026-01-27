@@ -95,7 +95,7 @@ assign shiftDue = mul[47];
 
 /// EXPONENT
 
-logic [10:0] exp_Final;
+logic [10:0] expFinal;
 logic expOverflow2; // TODO: REMOVE
 logic exponentRoundCarry;
 
@@ -106,7 +106,7 @@ sklansky_adder #(11) exponent_add_2(
                       .b({10'b0, shiftDue}),
                       .cin(exponentRoundCarry),
                       .cout(), // fixed 
-                      .y(exp_2));
+                      .y(expFinal));
 
 
 /// MANTISSA
@@ -196,8 +196,8 @@ sklansky_adder#(23) mantissa_add(
 
 //// END OUTPUT
 
-assign expOverflow = exp_2[9] | exp_2[10];
-assign expUnderflow = exp_2[11];
+assign expOverflow = expFinal[8] | expFinal[9];
+assign expUnderflow = expFinal[10];
 
 //// Final assembly & Exceptions
 
@@ -216,7 +216,7 @@ always_comb begin
     else begin             // normal output 
         y[31]    = signOfResult;
         // Exponent
-        y[30:23] = exp_2;
+        y[30:23] = expFinal[7:0]; 
         // Mantissa
         y[22:0] = mantissaFinal;
     end
