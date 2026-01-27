@@ -67,7 +67,7 @@ async def mult_float_exp_19_19(dut):
 
 
 @cocotb.test()
-async def mult_float_byzero(dut):
+async def mult_returnzero(dut):
     """"""
 
     A = 0b01000000000000000000000000000000 # 2.0
@@ -83,3 +83,47 @@ async def mult_float_byzero(dut):
     assert dut.y.value == 0, (
         f"Div result is incorrect: A={dut.a.value}, B={dut.b.value} {dut.y.value} != 1"
     )
+
+
+# test the NaN
+# h7fc00000
+
+@cocotb.test()
+async def mult_returnNaN(dut):
+    """
+    Test whether the NaNs is generated on inf * 0
+    """
+
+    A = 0x7f800000
+    B = 0x00000000
+    dut.a.value = A
+    dut.b.value = B
+    dut.rounding.value = 0 # RNE
+    
+    await Timer(2, unit="ns")
+
+
+    assert dut.y.value == 0x7fc00000, (
+        f"NaNs are not generated! {dut.y.value}"
+)
+
+
+@cocotb.test()
+async def mult_propagateNaN(dut):
+    """
+    Test whether the NaNs are propagated.
+    """
+
+    A = 0x7fc00000
+    B = 0x40000000
+
+    dut.a.value = A
+    dut.b.value = B
+    dut.rounding.value = 0 # RNE
+    
+    await Timer(2, unit="ns")
+
+
+    assert dut.y.value == 0x7fc00000, (
+        f"NaNs are not propagated! {dut.y.value}"
+)

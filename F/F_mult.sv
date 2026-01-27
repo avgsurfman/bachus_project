@@ -208,6 +208,10 @@ assign expUnderflow = expFinal[10] | (expFinal == 10'b0);
 always_comb begin
     if((isNaNB | isNaNA) | (isZeroA & isInfB) | (isZeroB & isInfA)) 
         y = 32'h7fc00000;
+    else if (isZeroB | isZeroA) begin
+        y[31] = signOfResult;
+        y[30:0] = 31'h0;
+    end
     else if (expOverflow) begin
         y[31] = signOfResult; 
         y[30:0] = 31'h7f80000;
