@@ -22,4 +22,9 @@ COCOTB_TOPLEVEL = F_mult
 COCOTB_TEST_MODULES = test_mult
 
 # include cocotb's make rules to take care of the simulator setup
+#make test:
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+# lint verilator
+#make lint:
+#	verilator  --lint-only F_mult.sv  -I ../adder/hdl/sklansky_adder.sv -I ../multiplier/unsigned/multiplier.sv -I ../multiplier/fulladder_and.sv 

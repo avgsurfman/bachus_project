@@ -1,6 +1,13 @@
 //// Three-stage Floating-point Multiply module (Calculate, Shift, Round).
-/// TODO: replace with a better mult module w/ 
-// comppressors specialized prefix adder in the future (so probably never)
+/// TODO: replace with a better mult module w/ comppressors 
+/// TODO: specialized prefix adder 
+/// TODO: Large CSA Array to add stickies, carries, roundcarries together as one
+/// TODO: Fix the path. Ercegovac has a nice solution, altough not the best;
+/// an LZA/LZD unit could predict a carry out of the mantissa block; better yet, 
+/// the addition of final carries could be done in parralel instead of doing this 
+/// sequentially like I'm doing ( mantissa csa, then shift, then add +1 based on gt).
+/// Right now the critical path goes through the multiplier tree, the adder 
+/// then the final exp adder (negligible) and the final mux (n + 2log)
 // CC Franciszek Moszczuk
 
 module F_mult (input logic [31:0] a, b,
@@ -30,15 +37,17 @@ F_isNaN        encoder_b(b, isNaNB, isInfB, isSubnormalB, isZeroB, isNormalB);
 ///// Need a generate statement here?
 //
 logic [7:0] carry, save;
-logic [8:0] exp; // should be 10 bits wide
+logic [10:0] exp; // should be 10 bits wide
 logic expOverflow, expUnderflow;
-
-
 
 // TODO: Change this. This can't detect overflows.
 // Optimized CSA Adder
 // See CMOS VLSI by Weste&Harris, Chapter 11.3
-assign carry[7] = a[30] | b [30];
+
+// assign save[8] ~ (0 ^ 0) == 1;
+// assign carry[8] = 0 | 0;
+// etc.
+assign carry[7] = a[30] | b[30];
 assign save[7] = ~ (a[30] ^ b[30]);
 assign carry[6] = a[29] & b[29];
 assign save[6] = a[29] ^ b[29];
@@ -56,12 +65,12 @@ assign carry[0] = a[23] | b[23];
 assign save[0] = ~ (a[23] ^ b[23]);
 
 // maybe 9 to account for overflow?
-sklansky_adder #(8) exponent_add( 
-                      .a(carry[7:0]), 
-                      .b({1'b0, save[7:1]}),
+sklansky_adder #(10) exponent_add( 
+                      .a({2'b00, carry[7:0]}), 
+                      .b({3'b111, save[7:1]}),
                       .cin(1'b0),
                       .cout(), 
-                      .y(exp[8:1]));
+                      .y(exp[10:1]));
 
 assign exp[0] = save[0];
 
@@ -73,6 +82,7 @@ logic isZeroOrSubnormalA, isZeroOrSubnormalB;
 assign isZeroOrSubnormalA = isZeroA   | isSubnormalA;   
 assign isZeroOrSubnormalB = isZeroB   | isSubnormalB;
 
+// TODO: replace with something less than linear delay.
 multiplier_bw_unsigned #(24) multiplier
                        (.a({ ~isZeroOrSubnormalA, a[22:0]}), 
                         .b({ ~isZeroOrSubnormalB, b[22:0]}),
@@ -85,16 +95,17 @@ assign shiftDue = mul[47];
 
 /// EXPONENT
 
-logic [7:0] exp_2;
+logic [10:0] exp_Final;
 logic expOverflow2; // TODO: REMOVE
 logic exponentRoundCarry;
 
-// Add the exponent (might overflow or underflow)
-sklansky_adder #(8) exponent_add_2( 
-                      .a(exp[7:0]), 
-                      .b({7'b0, shiftDue}),
+// Add the exponent (OverFlow is bit 9 and 10, UnderFlow is bit 11)
+// 9/11 baby
+sklansky_adder #(11) exponent_add_2( 
+                      .a(exp[10:0]), 
+                      .b({10'b0, shiftDue}),
                       .cin(exponentRoundCarry),
-                      .cout(expOverflow2), // TODO: FIX!!! 
+                      .cout(), // fixed 
                       .y(exp_2));
 
 
@@ -125,10 +136,11 @@ assign sticky = shiftDue ? | mul[22:0] : |mul[21:0];
 //    RESERVED2 = 3'b110,
 //    DYN       = 3'b111
 
-// chooses rounding based on FCSR flags
+// Rounding based on FCSR flags
 logic rounded_wire[23:0];
 logic round_carry, signOfResult;
-// we need signOfResult early for rounding
+
+// signOfResult is needed early for rounding
 assign signOfResult = a[31] ^ b[31];
 
 always_comb begin: rounding_mode
@@ -156,7 +168,18 @@ always_comb begin: rounding_mode
             end
 endcase 
 end
-  
+ 
+// add the mantissa after rounding (yest this is slow, fma without any of its upsides)
+
+logic [22:0] mantissaFinal;
+
+sklansky_adder#(23) mantissa_add(
+                      .a(shiftedVal), 
+                      .b('b0),
+                      .cin(round_carry),
+                      .cout(exponentRoundCarry), // fixed 
+                      .y(mantissaFinal));
+
 /// RNE:
 // 1)
 //perform second rounding once for RNE if not yet normalized.
@@ -172,6 +195,9 @@ end
 //  Wtf????
 
 //// END OUTPUT
+
+assign expOverflow = exp_2[9] | exp_2[10];
+assign expUnderflow = exp_2[11];
 
 //// Final assembly & Exceptions
 
@@ -192,11 +218,10 @@ always_comb begin
         // Exponent
         y[30:23] = exp_2;
         // Mantissa
-        y[22:0] = shiftedVal;
+        y[22:0] = mantissaFinal;
     end
     //
 end
-//assign y[31] = signOfResult;
 
 
 /// Flags
