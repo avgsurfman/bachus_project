@@ -5,7 +5,6 @@ import cocotb
 from cocotb.triggers import Timer
 
 
-
 @cocotb.test()
 async def mult_float_basic_2x2(dut):
     """"""
@@ -76,6 +75,7 @@ async def mult_float_byzero(dut):
     
     dut.a.value = A
     dut.b.value = B
+    dut.rounding.value = 0 # RNE
 
     await Timer(2, unit="ns")
 

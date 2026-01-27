@@ -197,9 +197,13 @@ sklansky_adder#(23) mantissa_add(
 //// END OUTPUT
 
 assign expOverflow = expFinal[8] | expFinal[9];
-assign expUnderflow = expFinal[10];
+assign expUnderflow = expFinal[10] | (expFinal == 10'b0);
 
-//// Final assembly & Exceptions
+
+/// UF handling
+// zo unit?
+
+/// Final assembly & Exceptions
 
 always_comb begin
     if((isNaNB | isNaNA) | (isZeroA & isInfB) | (isZeroB & isInfA)) 
@@ -211,7 +215,7 @@ always_comb begin
     else if (expUnderflow) begin
         y[31]    = signOfResult;
         y[30:23] = 8'h00; // subnormal exp
-        y[22:0]  = 23'hDEAD5B; //TODO: FIX
+        y[22:0]  = 23'hDEAD5B; //TODO: use the priority shift.
     end
     else begin             // normal output 
         y[31]    = signOfResult;
