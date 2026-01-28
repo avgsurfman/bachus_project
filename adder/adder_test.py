@@ -114,9 +114,9 @@ async def adder_generate(dut):
 async def adder_randomised_test(dut):
     """Test for adding 2 random numbers multiple times"""
 
-    for _ in range(100):
-        A   = random.randint(0, 2**(30))
-        B   = random.randint(0, 2**(30))
+    for _ in range(1000):
+        A   = random.randint(0, 2**(32)-1)
+        B   = random.randint(0, 2**(32)-1)
         Cin = random.randint(0,1)
 
         dut.a.value = A
@@ -126,7 +126,7 @@ async def adder_randomised_test(dut):
 
         await Timer(2, unit="ns")
 
-        assert dut.y.value == A + B + Cin, (
+        assert dut.y.value == adder_model(A, B, Cin, 32), (
             f"Randomised test failed with: {dut.a.value} + {dut.b.value} + {dut.cin.value}= {dut.y.value}"
         )
 
