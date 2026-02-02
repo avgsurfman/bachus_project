@@ -9,7 +9,7 @@ Currently only the M and F (partial) blocks are finished.
 - CocoTB testing suite🐍 (hope you like Python)
 - Reinventing the wheel for the 2137th time 🟡
 - Reusable modules 🔁
-- PnP (plug and pray) extenstions 🛐
+- PnP (plug and pray) extensions 🛐
 - Horror and unspeakable crimes against digital design
 
 
@@ -19,7 +19,7 @@ Currently only the M and F (partial) blocks are finished.
 You can either grab the project or grab its libraries based on what you need.
 
 ## Does it work?
-Currently only the divisor has some minor bugs. Also the multiplier doesn't support subnormals yet.
+Currently only the divisor has some minor bugs. Also the floating-point multiplier doesn't support subnormals yet.
 So yeah miraculously it works, sometimes. Maybe.
 
 
