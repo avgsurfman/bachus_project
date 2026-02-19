@@ -9,9 +9,14 @@ module F_fma (input logic [22:0] a, b,
 /// 		46-bit output
 /// 	           + Adder
 ///              47-bit out
+///                + Adder
 ///         |			|
 ///	      >ROUNDING UNIT <
-
-
+///           >exception unit<
+/// or ...
+///          46-bit 4:2 compressor tree integrated with
+///            + CSA adder w 47 bit output
+///             + Final Adder (with cin from rounding?)
+///          
 
 endmodule

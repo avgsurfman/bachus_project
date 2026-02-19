@@ -8,7 +8,8 @@
 /// sequentially like I'm doing ( mantissa csa, then shift, then add +1 based on gt).
 /// Right now the critical path goes through the multiplier tree, the adder 
 /// then the final exp adder (negligible) and the final mux (n + 2log)
-// CC Franciszek Moszczuk
+// CC Franciszek Moszczuk, Kamil Mielcarek and the University of Zielona Góra 
+// Licensed under Apache v2.0 and the BSD 3-clause license. 
 
 module F_mult (input logic [31:0] a, b,
                input logic [2:0]  rounding,  
@@ -83,15 +84,19 @@ assign isZeroOrSubnormalA = isZeroA   | isSubnormalA;
 assign isZeroOrSubnormalB = isZeroB   | isSubnormalB;
 
 // TODO: replace with something less than linear delay.
+// Like a wallace tree...
 multiplier_bw_unsigned #(24) multiplier
                        (.a({ ~isZeroOrSubnormalA, a[22:0]}), 
                         .b({ ~isZeroOrSubnormalB, b[22:0]}),
                         .y(mul));
+
 /// NORMALIZED MULTIPLICATION
 // might be 01.0000 or 10.00000 so we might have to shift by one
 
-logic shiftDue;
-assign shiftDue = mul[47];
+logic shiftDue, shiftSub;
+assign shiftDue = mul[47]; //10.000
+// TODO: change the logic slightly to decode the proper shift.
+
 
 /// EXPONENT
 
@@ -114,16 +119,20 @@ sklansky_adder #(11) exponent_add_2(
 logic [22:0] shiftedVal;    // 23 bits wide
 logic guard, sticky;
 
+// doesn't work for subnormals
+// subnormals don't have a leading one, 
+// Suzuki LZA goes HERE 
 
+// TODO: FIX!!!
 assign shiftedVal = shiftDue ? mul[46:24] : mul[45:23];
 assign guard = shiftDue ? mul[23] : mul[22];
 assign sticky = shiftDue ? | mul[22:0] : |mul[21:0];    
+
 
 //assign shiftedVal = mul >> shiftDue;
 
 //assign shiftedVal = (|shiftDue [4:0]) ? 
 //    (mul >> shiftDue) : mul[23:0]; 
-
  
 //// ROUNDING
 

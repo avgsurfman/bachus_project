@@ -8,8 +8,7 @@
 `include "../adder/hdl/sklansky_adder.sv"
 `include "./F_isNaN.sv"
 
-
-module F_add   (input logic [31:0] a, b,
+module F_add  (input logic [31:0] a, b,
                input logic [2:0]  rounding,  
                //input logic clk,
                output logic flags [4:0], // NV DZ OF UF NX
@@ -30,6 +29,13 @@ F_isNaN        encoderB(B, isNaNA, isInfB, isSubnormalB, isZeroB, isNormalB);
 // 3. Add/substract (26-bit adder) based on a[31] and b[31]
 // REMEMBER IMPLICIT ONE!!!
 
+// 4. LOD/LZA
+
+// 5. Left Shift
+
+// 6. Round
+
+// 7. Adjust exp.
 
 // 4. Normalize exp (+1, 2/-23)
 // 1.999 + 1.9999 == 3.9999999999 > max shift two
